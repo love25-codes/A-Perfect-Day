@@ -273,13 +273,23 @@ function updateWires(t) {
 
   plugLeft.style.fill =
     connected
-      ? "#ffdca0"
+      ? "#ffe6ad"
       : "#2a2118";
 
   plugRight.style.fill =
     connected
-      ? "#ffdca0"
+      ? "#ffe6ad"
       : "#2a2118";
+
+  plugLeft.style.filter =
+    connected
+      ? "drop-shadow(0 0 8px #ffcf6b)"
+      : "none";
+
+  plugRight.style.filter =
+    connected
+      ? "drop-shadow(0 0 8px #ffcf6b)"
+      : "none";
 }
 
 
@@ -307,15 +317,16 @@ function updateSpark(active) {
    TV rendering
    ------------------------------------------------------------ */
 
+/* Brighter, more saturated ambient colors matching the new sky palette */
 const glowColors = [
-  [70,40,70],
-  [70,150,200],
-  [140,90,50],
-  [70,160,210],
-  [220,100,60],
-  [60,40,80],
-  [15,20,45],
-  [5,5,8]
+  [147,65,127],
+  [47,158,224],
+  [138,74,46],
+  [47,143,224],
+  [194,46,110],
+  [88,44,110],
+  [26,33,96],
+  [8,8,16]
 ];
 
 function lerp(a,b,t) {
@@ -549,7 +560,7 @@ function renderTV() {
           ${c[0]},
           ${c[1]},
           ${c[2]},
-          .45
+          .5
         ),
         transparent 62%
       )
@@ -754,6 +765,15 @@ let toppingIndex = 0;
 
 let served = false;
 
+/* Warm, energetic colors the magic sparkles cycle through */
+const SPARKLE_COLORS = [
+  "#ffb636",
+  "#ff3f9e",
+  "#33e6d6",
+  "#ffe066",
+  "#c6ff4d"
+];
+
 
 /* ============================================================
    INLINE SVG HANDS
@@ -777,15 +797,15 @@ function handSVG(id) {
 
         <stop
           offset="0%"
-          stop-color="#f0c8a0"/>
+          stop-color="#f6d2a6"/>
 
         <stop
           offset="55%"
-          stop-color="#dba277"/>
+          stop-color="#e2ab7c"/>
 
         <stop
           offset="100%"
-          stop-color="#a9754e"/>
+          stop-color="#b17d52"/>
 
       </linearGradient>
 
@@ -798,11 +818,11 @@ function handSVG(id) {
 
         <stop
           offset="0%"
-          stop-color="#ece3d0"/>
+          stop-color="#fff6e6"/>
 
         <stop
           offset="100%"
-          stop-color="#cbbfa2"/>
+          stop-color="#ecdcb8"/>
 
       </linearGradient>
 
@@ -824,7 +844,7 @@ function handSVG(id) {
       y="176"
       width="68"
       height="8"
-      fill="#c9a15a"
+      fill="#ffcf6b"
       opacity=".65"/>
 
 
@@ -953,15 +973,15 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#efc889"/>
+            stop-color="#ffdd9e"/>
 
           <stop
             offset="60%"
-            stop-color="#d9a45c"/>
+            stop-color="#eeae5c"/>
 
           <stop
             offset="100%"
-            stop-color="#a96829"/>
+            stop-color="#b9711f"/>
 
         </radialGradient>
 
@@ -973,15 +993,15 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#e0654a"/>
+            stop-color="#ff7a52"/>
 
           <stop
             offset="70%"
-            stop-color="#c94a35"/>
+            stop-color="#e2472f"/>
 
           <stop
             offset="100%"
-            stop-color="#8a2e1f"/>
+            stop-color="#9e2915"/>
 
         </radialGradient>
 
@@ -993,11 +1013,11 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#fff9df"/>
+            stop-color="#fffbe4"/>
 
           <stop
             offset="100%"
-            stop-color="#edcf76"/>
+            stop-color="#ffdd82"/>
 
         </radialGradient>
 
@@ -1016,8 +1036,8 @@ const DISH_ART = {
       <!-- blister marks -->
 
       <g
-        fill="#9d632b"
-        opacity=".55">
+        fill="#a3641f"
+        opacity=".6">
 
         <circle cx="30" cy="70" r="5"/>
         <circle cx="52" cy="25" r="4"/>
@@ -1050,7 +1070,7 @@ const DISH_ART = {
           Q60 100 40 70Z
         "
         fill="url(#pizzaCheese)"
-        opacity=".65"/>
+        opacity=".7"/>
 
 
       <circle
@@ -1077,6 +1097,17 @@ const DISH_ART = {
         r="11"
         fill="url(#pizzaCheese)"/>
 
+
+      <!-- glossy oil sheen -->
+
+      <ellipse
+        cx="75"
+        cy="60"
+        rx="30"
+        ry="12"
+        fill="#fff"
+        opacity=".18"/>
+
     </svg>
     `;
   },
@@ -1098,11 +1129,11 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#75482c"/>
+            stop-color="#8a5230"/>
 
           <stop
             offset="100%"
-            stop-color="#3d2112"/>
+            stop-color="#4a2814"/>
 
         </linearGradient>
 
@@ -1115,11 +1146,11 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#fffdf3"/>
+            stop-color="#ffffff"/>
 
           <stop
             offset="100%"
-            stop-color="#dfd0b1"/>
+            stop-color="#f0e2c0"/>
 
         </linearGradient>
 
@@ -1141,7 +1172,7 @@ const DISH_ART = {
         cy="169"
         rx="62"
         ry="10"
-        fill="#e8dcc4"/>
+        fill="#fff2d8"/>
 
       <path
         d="
@@ -1150,7 +1181,7 @@ const DISH_ART = {
           L120 184
           Q100 192 80 184Z
         "
-        fill="#d4c5a5"/>
+        fill="#e8d6ae"/>
 
 
       <!-- bottom tier -->
@@ -1212,10 +1243,21 @@ const DISH_ART = {
           M135 87
           Q139 102 135 109
         "
-        stroke="#d8c9a9"
+        stroke="#e8d8b4"
         stroke-width="5"
         fill="none"
         stroke-linecap="round"/>
+
+
+      <!-- glossy highlight -->
+
+      <ellipse
+        cx="80"
+        cy="60"
+        rx="26"
+        ry="8"
+        fill="#fff"
+        opacity=".5"/>
 
     </svg>
     `;
@@ -1237,11 +1279,11 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#f0e3cb"/>
+            stop-color="#f7ecd4"/>
 
           <stop
             offset="100%"
-            stop-color="#9f9175"/>
+            stop-color="#a89670"/>
 
         </radialGradient>
 
@@ -1253,15 +1295,15 @@ const DISH_ART = {
 
           <stop
             offset="0%"
-            stop-color="#e9ca7b"/>
+            stop-color="#ffdf94"/>
 
           <stop
             offset="65%"
-            stop-color="#c9a15a"/>
+            stop-color="#e8b444"/>
 
           <stop
             offset="100%"
-            stop-color="#76592b"/>
+            stop-color="#8a621f"/>
 
         </radialGradient>
 
@@ -1296,14 +1338,14 @@ const DISH_ART = {
         rx="32"
         ry="12"
         fill="white"
-        opacity=".18"/>
+        opacity=".28"/>
 
 
       <!-- noodles -->
 
       <g
         fill="none"
-        stroke="#fff5df"
+        stroke="#fff8e4"
         stroke-width="5"
         stroke-linecap="round">
 
@@ -1350,25 +1392,26 @@ const TOPPINGS = {
       id: "pepperoni",
       label: "Pepperoni",
       max: 12,
+      price: 0.75,
 
       icon: icon(`
         <circle
           cx="30"
           cy="30"
           r="22"
-          fill="#c43d2a"/>
+          fill="#e2472f"/>
 
         <circle
           cx="23"
           cy="23"
           r="3"
-          fill="#7a2015"/>
+          fill="#8f2515"/>
 
         <circle
           cx="37"
           cy="35"
           r="3"
-          fill="#7a2015"/>
+          fill="#8f2515"/>
       `)
     },
 
@@ -1376,6 +1419,7 @@ const TOPPINGS = {
       id: "basil",
       label: "Basil Leaves",
       max: 12,
+      price: 0.5,
 
       icon: icon(`
         <path
@@ -1384,11 +1428,11 @@ const TOPPINGS = {
             C48 15 49 35 30 54
             C11 35 12 15 30 6Z
           "
-          fill="#4f913e"/>
+          fill="#5cb84a"/>
 
         <path
           d="M30 10L30 50"
-          stroke="#275d2b"
+          stroke="#2c7a30"
           stroke-width="2"/>
       `)
     },
@@ -1397,6 +1441,7 @@ const TOPPINGS = {
       id: "mushroom",
       label: "Charred Mushrooms",
       max: 10,
+      price: 0.6,
 
       icon: icon(`
         <path
@@ -1406,7 +1451,7 @@ const TOPPINGS = {
             C50 35 40 35 30 35
             C20 35 10 35 10 30Z
           "
-          fill="#8c6745"/>
+          fill="#a17b52"/>
 
         <rect
           x="25"
@@ -1414,7 +1459,7 @@ const TOPPINGS = {
           width="10"
           height="16"
           rx="4"
-          fill="#e6d7bd"/>
+          fill="#f0e2c4"/>
       `)
     },
 
@@ -1422,6 +1467,7 @@ const TOPPINGS = {
       id: "olive",
       label: "Kalamata Olives",
       max: 14,
+      price: 0.5,
 
       icon: icon(`
         <ellipse
@@ -1429,14 +1475,14 @@ const TOPPINGS = {
           cy="30"
           rx="14"
           ry="17"
-          fill="#241722"/>
+          fill="#3a1f38"/>
 
         <ellipse
           cx="30"
           cy="30"
           rx="5"
           ry="6"
-          fill="#080509"/>
+          fill="#120a12"/>
       `)
     },
 
@@ -1444,19 +1490,20 @@ const TOPPINGS = {
       id: "mozzarella",
       label: "Mozzarella Pearls",
       max: 12,
+      price: 0.65,
 
       icon: icon(`
         <circle
           cx="23"
           cy="27"
           r="11"
-          fill="#fff9e9"/>
+          fill="#fffdf0"/>
 
         <circle
           cx="38"
           cy="35"
           r="9"
-          fill="#eee3c9"/>
+          fill="#fff2d2"/>
       `)
     }
 
@@ -1469,31 +1516,32 @@ const TOPPINGS = {
       id: "berries",
       label: "Wild Berries",
       max: 14,
+      price: 0.8,
 
       icon: icon(`
         <circle
           cx="30"
           cy="30"
           r="16"
-          fill="#a52542"/>
+          fill="#ff3f6f"/>
 
         <circle
           cx="23"
           cy="23"
           r="2"
-          fill="#4a1020"/>
+          fill="#6a1030"/>
 
         <circle
           cx="36"
           cy="25"
           r="2"
-          fill="#4a1020"/>
+          fill="#6a1030"/>
 
         <circle
           cx="31"
           cy="36"
           r="2"
-          fill="#4a1020"/>
+          fill="#6a1030"/>
       `)
     },
 
@@ -1501,6 +1549,7 @@ const TOPPINGS = {
       id: "gold",
       label: "Gold Leaf",
       max: 8,
+      price: 1.5,
 
       icon: icon(`
         <path
@@ -1511,7 +1560,7 @@ const TOPPINGS = {
             L36 51
             Z
           "
-          fill="#e8b84a"/>
+          fill="#ffcf6b"/>
 
         <path
           d="M15 34L30 16"
@@ -1524,6 +1573,7 @@ const TOPPINGS = {
       id: "cocoa",
       label: "Shaved Cocoa",
       max: 12,
+      price: 0.55,
 
       icon: icon(`
         <path
@@ -1533,7 +1583,7 @@ const TOPPINGS = {
             C31 24 33 40 48 44
             C35 51 17 51 10 45Z
           "
-          fill="#4a2918"/>
+          fill="#5c3420"/>
       `)
     },
 
@@ -1541,12 +1591,13 @@ const TOPPINGS = {
       id: "pistachio",
       label: "Pistachio Crumble",
       max: 12,
+      price: 0.7,
 
       icon: icon(`
-        <circle cx="20" cy="25" r="5" fill="#89ad55"/>
-        <circle cx="34" cy="20" r="4" fill="#a9c96a"/>
-        <circle cx="30" cy="37" r="5" fill="#6e913f"/>
-        <circle cx="43" cy="34" r="4" fill="#9fc362"/>
+        <circle cx="20" cy="25" r="5" fill="#9fce5e"/>
+        <circle cx="34" cy="20" r="4" fill="#c6ff4d"/>
+        <circle cx="30" cy="37" r="5" fill="#7fae44"/>
+        <circle cx="43" cy="34" r="4" fill="#b4e35c"/>
       `)
     }
 
@@ -1559,6 +1610,7 @@ const TOPPINGS = {
       id: "chashu",
       label: "Chashu Pork",
       max: 8,
+      price: 0.9,
 
       icon: icon(`
         <ellipse
@@ -1566,7 +1618,7 @@ const TOPPINGS = {
           cy="30"
           rx="20"
           ry="14"
-          fill="#b86d43"/>
+          fill="#d1854f"/>
 
         <path
           d="
@@ -1576,7 +1628,7 @@ const TOPPINGS = {
             Q30 43 47 35
           "
           fill="none"
-          stroke="#633019"
+          stroke="#79401f"
           stroke-width="2"/>
       `)
     },
@@ -1585,6 +1637,7 @@ const TOPPINGS = {
       id: "egg",
       label: "Ramen Egg",
       max: 6,
+      price: 0.6,
 
       icon: icon(`
         <path
@@ -1593,7 +1646,7 @@ const TOPPINGS = {
             A20 20 0 0 1 50 31
             Z
           "
-          fill="#fff8e8"/>
+          fill="#fffaf0"/>
 
         <path
           d="
@@ -1601,7 +1654,7 @@ const TOPPINGS = {
             A10 10 0 0 1 40 31
             Z
           "
-          fill="#e7a229"/>
+          fill="#ff9d2e"/>
       `)
     },
 
@@ -1609,6 +1662,7 @@ const TOPPINGS = {
       id: "nori",
       label: "Nori Sheet",
       max: 8,
+      price: 0.4,
 
       icon: icon(`
         <rect
@@ -1617,13 +1671,13 @@ const TOPPINGS = {
           width="32"
           height="32"
           rx="3"
-          fill="#16251a"/>
+          fill="#1c3320"/>
 
         <path
           d="
             M14 21H46
           "
-          stroke="#405340"
+          stroke="#4a6b48"
           stroke-width="4"/>
       `)
     },
@@ -1632,6 +1686,7 @@ const TOPPINGS = {
       id: "scallion",
       label: "Charred Scallions",
       max: 12,
+      price: 0.35,
 
       icon: icon(`
         <circle
@@ -1639,7 +1694,7 @@ const TOPPINGS = {
           cy="23"
           r="6"
           fill="none"
-          stroke="#72a94d"
+          stroke="#8fd85a"
           stroke-width="3"/>
 
         <circle
@@ -1647,7 +1702,7 @@ const TOPPINGS = {
           cy="31"
           r="6"
           fill="none"
-          stroke="#91bf61"
+          stroke="#b0f070"
           stroke-width="3"/>
 
         <circle
@@ -1655,7 +1710,7 @@ const TOPPINGS = {
           cy="42"
           r="5"
           fill="none"
-          stroke="#568a3c"
+          stroke="#6ab048"
           stroke-width="3"/>
       `)
     }
@@ -1666,22 +1721,23 @@ const TOPPINGS = {
 
 
 /* ============================================================
-   DISH DATA
+   DISH DATA — options now carry a realistic price
    ============================================================ */
 
 const DISH_DATA = {
 
   pizza: {
     label: "Handcrafted Pizza",
+    basePrice: 9.5,
 
     bases: [
       {
         key: "crust",
         label: "Crust",
         options: [
-          "Classic Sourdough",
-          "Neapolitan Thin",
-          "Cheesy Stuffed"
+          { name: "Classic Sourdough", price: 0 },
+          { name: "Neapolitan Thin", price: 0.5 },
+          { name: "Cheesy Stuffed", price: 1.75 }
         ]
       },
 
@@ -1689,9 +1745,9 @@ const DISH_DATA = {
         key: "sauce",
         label: "Sauce",
         options: [
-          "San Marzano Tomato",
-          "White Truffle Cream",
-          "Basil Pesto"
+          { name: "San Marzano Tomato", price: 0 },
+          { name: "White Truffle Cream", price: 2 },
+          { name: "Basil Pesto", price: 1.25 }
         ]
       }
     ],
@@ -1702,15 +1758,16 @@ const DISH_DATA = {
 
   cake: {
     label: "Celebration Cake",
+    basePrice: 14,
 
     bases: [
       {
         key: "sponge",
         label: "Sponge",
         options: [
-          "Dark Chocolate",
-          "Madagascar Vanilla",
-          "Matcha"
+          { name: "Dark Chocolate", price: 0 },
+          { name: "Madagascar Vanilla", price: 0.5 },
+          { name: "Matcha", price: 1.25 }
         ]
       },
 
@@ -1718,9 +1775,9 @@ const DISH_DATA = {
         key: "frosting",
         label: "Frosting",
         options: [
-          "Swiss Buttercream",
-          "Salted Caramel",
-          "Earl Grey Ganache"
+          { name: "Swiss Buttercream", price: 0 },
+          { name: "Salted Caramel", price: 1 },
+          { name: "Earl Grey Ganache", price: 1.5 }
         ]
       }
     ],
@@ -1731,15 +1788,16 @@ const DISH_DATA = {
 
   noodles: {
     label: "Comfort Noodles",
+    basePrice: 11,
 
     bases: [
       {
         key: "broth",
         label: "Broth",
         options: [
-          "Rich Tonkotsu",
-          "Smoky Shoyu",
-          "Coconut Curry"
+          { name: "Rich Tonkotsu", price: 0 },
+          { name: "Smoky Shoyu", price: 0 },
+          { name: "Coconut Curry", price: 1 }
         ]
       },
 
@@ -1747,9 +1805,9 @@ const DISH_DATA = {
         key: "noodle",
         label: "Noodle Style",
         options: [
-          "Hand-Pulled Ramen",
-          "Silky Udon",
-          "Egg Noodles"
+          { name: "Hand-Pulled Ramen", price: 0 },
+          { name: "Silky Udon", price: 0.5 },
+          { name: "Egg Noodles", price: 0.5 }
         ]
       }
     ],
@@ -1887,6 +1945,13 @@ function selectDish(type, card) {
    PANEL
    ============================================================ */
 
+function formatPrice(value) {
+
+  return "$" + value.toFixed(2);
+
+}
+
+
 function renderPanel() {
 
   const data =
@@ -1933,8 +1998,14 @@ function buildBaseOptions(
     button.className =
       "db-chip";
 
-    button.textContent =
-      option;
+    button.innerHTML = `
+      ${option.name}
+      ${
+        option.price > 0
+          ? `<span class="chip-price">+${formatPrice(option.price)}</span>`
+          : ""
+      }
+    `;
 
     button.addEventListener(
       "click",
@@ -1990,6 +2061,7 @@ function buildToppingButtons(toppings) {
 
       <span>
         ${topping.label}
+        <span class="t-price">${formatPrice(topping.price)}</span>
       </span>
 
       <span
@@ -2076,7 +2148,9 @@ const TOPPING_RADIUS = {
 
 /*
   This creates a deterministic spiral around
-  the center.
+  the center, with a touch of organic jitter
+  so scattered toppings never look perfectly
+  mechanical.
 
   Every topping remains inside the plate.
 */
@@ -2104,16 +2178,26 @@ function getToppingPosition(index) {
       bounds.min
     );
 
+  /* small deterministic jitter, seeded by index,
+     keeps the scatter looking hand-placed */
+  const jitterX =
+    Math.sin(index * 12.9898) * 6;
+
+  const jitterY =
+    Math.cos(index * 78.233) * 6;
+
 
   return {
 
     x:
       Math.cos(angle) *
-      radius,
+      radius +
+      jitterX,
 
     y:
       Math.sin(angle) *
-      radius,
+      radius +
+      jitterY,
 
     rotation:
       (
@@ -2199,6 +2283,16 @@ function addTopping(
       ? "left"
       : "right"
   );
+
+
+  /* a little physical "clink" so the plate
+     feels like it's actually being loaded */
+
+  dbPlate.classList.remove("bump");
+
+  void dbPlate.offsetWidth;
+
+  dbPlate.classList.add("bump");
 
 
   toppingIndex++;
@@ -2421,7 +2515,7 @@ function createMagicSparkles() {
 
   for (
     let i = 0;
-    i < 22;
+    i < 26;
     i++
   ) {
 
@@ -2443,6 +2537,13 @@ function createMagicSparkles() {
 
     sparkle.style.animationDelay =
       random(0,.6) + "s";
+
+    sparkle.style.color =
+      SPARKLE_COLORS[
+        Math.floor(
+          random(0, SPARKLE_COLORS.length)
+        )
+      ];
 
 
     sparkle.innerHTML = `
@@ -2495,17 +2596,31 @@ function showReceipt() {
 
   const lines = [];
 
+  let total = data.basePrice;
+
+
+  lines.push({
+    qty: "1×",
+    name: data.label,
+    price: data.basePrice
+  });
+
 
   data.bases.forEach(
     base => {
 
+      const selection =
+        baseSelections[
+          base.key
+        ];
+
       lines.push({
-        qty: "1×",
-        name:
-          baseSelections[
-            base.key
-          ]
+        qty: "—",
+        name: selection.name,
+        price: selection.price
       });
+
+      total += selection.price;
 
     }
   );
@@ -2522,10 +2637,16 @@ function showReceipt() {
 
       if (count > 0) {
 
+        const lineTotal =
+          count * topping.price;
+
         lines.push({
           qty: count + "×",
-          name: topping.label
+          name: topping.label,
+          price: lineTotal
         });
+
+        total += lineTotal;
 
       }
 
@@ -2561,11 +2682,41 @@ function showReceipt() {
             ${line.name}
           </span>
 
+          <span>
+            ${
+              line.price > 0
+                ? formatPrice(line.price)
+                : "incl."
+            }
+          </span>
+
         </div>
       `
     ).join("")}
 
     <hr class="receipt-divider">
+
+    <div class="receipt-line receipt-total">
+
+      <span></span>
+
+      <span>
+        Total
+      </span>
+
+      <span>
+        ${formatPrice(total)}
+      </span>
+
+    </div>
+
+    <div class="receipt-stamp-wrap">
+
+      <span class="receipt-stamp">
+        ✓ Fresh
+      </span>
+
+    </div>
 
     <p class="receipt-foot">
       A PERFECT DAY · BON APPÉTIT
