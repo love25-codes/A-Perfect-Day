@@ -1,112 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A Perfect Day — An Interactive Story</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Perfect Day — Interactive Culinary Story</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- Ambient grain overlay -->
 <div class="grain"></div>
 
-<!-- ============ SCROLL CONTAINER (defines total scroll length) ============ -->
+<!-- ============================================================
+     PART 1 — THE TV STORY
+     ============================================================ -->
+
 <div class="scroll-container" id="scrollContainer">
 
-  <!-- ============ STICKY VIEWPORT (what's actually visible) ============ -->
   <div class="sticky-viewport">
 
-    <!-- intro title, fades out early -->
+    <!-- Opening -->
     <div class="intro-title" id="introTitle">
       <span class="intro-eyebrow">an interactive story</span>
       <h1>A Perfect Day</h1>
       <span class="intro-hint">scroll to begin</span>
     </div>
 
-    <!-- Ambient backlight glow behind everything -->
     <div class="ambient-glow" id="ambientGlow"></div>
 
-    <!-- ===== WIRES (Phase 1) ===== -->
-    <div class="wires-layer" id="wiresLayer">
-      <svg class="wires-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
-        <path id="wireLeft" class="wire wire-left" d="M 250 -20 C 250 150, 350 250, 470 300" />
-        <path id="wireRight" class="wire wire-right" d="M 750 -20 C 750 150, 650 250, 530 300" />
-        <circle id="plugLeft" class="plug" cx="470" cy="300" r="9" />
-        <circle id="plugRight" class="plug" cx="530" cy="300" r="9" />
+    <!-- Wires -->
+    <div class="wires-layer">
+      <svg class="wires-svg"
+           viewBox="0 0 1000 600"
+           preserveAspectRatio="none">
+
+        <path
+          id="wireLeft"
+          class="wire"
+          d="M 250 -20 C 250 150, 350 250, 470 300"/>
+
+        <path
+          id="wireRight"
+          class="wire"
+          d="M 750 -20 C 750 150, 650 250, 530 300"/>
+
+        <circle id="plugLeft" class="plug" cx="470" cy="300" r="9"/>
+        <circle id="plugRight" class="plug" cx="530" cy="300" r="9"/>
       </svg>
+
       <div class="spark" id="spark">
         <svg viewBox="0 0 100 100">
-          <polygon points="55,2 30,55 48,55 40,98 75,42 55,42" />
+          <polygon points="55,2 30,55 48,55 40,98 75,42 55,42"/>
         </svg>
       </div>
     </div>
 
-    <!-- ===== TV RIG (scales in during Phase 2) ===== -->
+    <!-- ========================================================
+         RETRO TV
+         ======================================================== -->
+
     <div class="tv-rig" id="tvRig">
 
-      <div class="tv-chassis" id="tvChassis">
+      <div class="tv-chassis">
 
-        <!-- speaker grill -->
         <div class="tv-grill">
           <div class="grill-slats"></div>
-          <div class="tv-brand">MODEL&nbsp;7 · CHRONOVISION</div>
+          <div class="tv-brand">
+            MODEL 7 · CHRONOVISION
+          </div>
         </div>
 
-        <!-- screen bezel + glass -->
         <div class="tv-screen-bezel">
-          <div class="tv-screen" id="tvScreen">
+
+          <div class="tv-screen">
 
             <div class="crt-static" id="crtStatic"></div>
-            <div class="crt-bzzt" id="crtBzzt">BZZZT&hellip;</div>
+            <div class="crt-bzzt" id="crtBzzt">BZZZT...</div>
 
-            <!-- ===== 8 SCENES live here ===== -->
-            <div class="scenes" id="scenes">
+            <div class="scenes">
 
-              <!-- Scene 1 — 07:00 AM Wake Up -->
-              <section class="scene scene-1" data-scene="0">
+              <!-- SCENE 1 -->
+              <section class="scene" data-scene="0">
                 <div class="sky sky-dawn"></div>
                 <div class="sun-rays"></div>
+
                 <div class="dust-motes" id="dustMotes"></div>
+
                 <div class="curtain curtain-left"></div>
                 <div class="curtain curtain-right"></div>
+
                 <div class="window-frame"></div>
+
                 <div class="bed">
                   <div class="pillow"></div>
                   <div class="blanket"></div>
-                  <div class="sleeper" id="sleeper"></div>
+                  <div class="sleeper"></div>
                 </div>
+
                 <div class="clock-widget">
                   <span id="clockDigits">06:59</span>
                 </div>
+
                 <div class="scene-caption">
                   <span class="cap-time">07:00 AM</span>
                   <span class="cap-title">Wake Up</span>
                 </div>
               </section>
 
-              <!-- Scene 2 — 09:00 AM Morning -->
-              <section class="scene scene-2" data-scene="1">
+              <!-- SCENE 2 -->
+              <section class="scene" data-scene="1">
                 <div class="sky sky-morning"></div>
+
                 <div class="clouds" id="cloudsLayer"></div>
                 <div class="birds" id="birdsLayer"></div>
+
                 <div class="window-frame window-frame-2"></div>
+
                 <div class="stretch-figure">
                   <div class="fig-torso"></div>
                   <div class="fig-arm fig-arm-left"></div>
                   <div class="fig-arm fig-arm-right"></div>
                   <div class="fig-head"></div>
                 </div>
+
                 <div class="scene-caption">
                   <span class="cap-time">09:00 AM</span>
                   <span class="cap-title">Morning</span>
                 </div>
               </section>
 
-              <!-- Scene 3 — 12:00 PM Cafe -->
-              <section class="scene scene-3" data-scene="2">
+              <!-- SCENE 3 -->
+              <section class="scene" data-scene="2">
                 <div class="sky sky-cafe"></div>
                 <div class="cafe-wall"></div>
+
                 <div class="cafe-table">
                   <div class="mug">
                     <div class="mug-handle"></div>
@@ -114,134 +141,550 @@
                     <div class="steam s2"></div>
                     <div class="steam s3"></div>
                   </div>
-                  <div class="plate"><div class="croissant"></div></div>
+
+                  <div class="small-plate">
+                    <div class="croissant"></div>
+                  </div>
                 </div>
-                <div class="cafe-lamp"><div class="lamp-glow"></div></div>
+
+                <div class="cafe-lamp">
+                  <div class="lamp-glow"></div>
+                </div>
+
                 <div class="scene-caption">
                   <span class="cap-time">12:00 PM</span>
                   <span class="cap-title">Lunch</span>
                 </div>
               </section>
 
-              <!-- Scene 4 — 03:00 PM Adventure -->
-              <section class="scene scene-4" data-scene="3">
+              <!-- SCENE 4 -->
+              <section class="scene" data-scene="3">
                 <div class="sky sky-afternoon"></div>
+
                 <div class="city-skyline"></div>
                 <div class="park-hill"></div>
-                <div class="tree" style="left:12%;"></div>
-                <div class="tree" style="left:78%;"></div>
-                <div class="kite" id="kite">
-                  <svg viewBox="0 0 60 70"><polygon points="30,0 60,30 30,70 0,30" /></svg>
+
+                <div class="tree tree-one"></div>
+                <div class="tree tree-two"></div>
+
+                <div class="kite">
+                  <svg viewBox="0 0 60 70">
+                    <polygon points="30,0 60,30 30,70 0,30"/>
+                  </svg>
                   <div class="kite-tail"></div>
                 </div>
+
                 <div class="runner">
                   <div class="runner-torso"></div>
                   <div class="runner-leg runner-leg-back"></div>
                   <div class="runner-leg runner-leg-front"></div>
                   <div class="runner-head"></div>
                 </div>
+
                 <div class="scene-caption">
                   <span class="cap-time">03:00 PM</span>
                   <span class="cap-title">Adventure</span>
                 </div>
               </section>
 
-              <!-- Scene 5 — 06:30 PM Golden Hour -->
-              <section class="scene scene-5" data-scene="4">
+              <!-- SCENE 5 -->
+              <section class="scene" data-scene="4">
                 <div class="sky sky-golden"></div>
                 <div class="sun-disc"></div>
                 <div class="rooftop-silhouette"></div>
                 <div class="antenna"></div>
+
                 <div class="scene-caption">
                   <span class="cap-time">06:30 PM</span>
                   <span class="cap-title">Golden Hour</span>
                 </div>
               </section>
 
-              <!-- Scene 6 — 09:00 PM Evening -->
-              <section class="scene scene-6" data-scene="5">
+              <!-- SCENE 6 -->
+              <section class="scene" data-scene="5">
                 <div class="sky sky-evening"></div>
-                <div class="lamp-post"><div class="lamp-post-glow"></div></div>
+
+                <div class="lamp-post">
+                  <div class="lamp-post-glow"></div>
+                </div>
+
                 <div class="record-player">
-                  <div class="vinyl" id="vinyl"><div class="vinyl-label"></div></div>
+                  <div class="vinyl">
+                    <div class="vinyl-label"></div>
+                  </div>
                   <div class="tonearm"></div>
                 </div>
+
                 <div class="notes" id="notesLayer"></div>
+
                 <div class="scene-caption">
                   <span class="cap-time">09:00 PM</span>
                   <span class="cap-title">Evening</span>
                 </div>
               </section>
 
-              <!-- Scene 7 — 11:30 PM Night -->
-              <section class="scene scene-7" data-scene="6">
+              <!-- SCENE 7 -->
+              <section class="scene" data-scene="6">
                 <div class="sky sky-night"></div>
+
                 <div class="stars" id="starsLayer"></div>
-                <div class="moon"><div class="moon-glow"></div></div>
+
+                <div class="moon">
+                  <div class="moon-glow"></div>
+                </div>
+
                 <div class="window-frame window-frame-3"></div>
                 <div class="sleeping-figure"></div>
+
                 <div class="scene-caption">
                   <span class="cap-time">11:30 PM</span>
                   <span class="cap-title">Night</span>
                 </div>
               </section>
 
-              <!-- Scene 8 — Ending Credits -->
-              <section class="scene scene-8" data-scene="7">
+              <!-- SCENE 8 -->
+              <section class="scene" data-scene="7">
+
                 <div class="credits-bg"></div>
+
                 <div class="credits-roll">
                   <p class="credits-heading">A Perfect Day</p>
+
                   <p class="credits-line">STARRING</p>
                   <p class="credits-name">YOU</p>
-                  <p class="credits-line">DIRECTED&nbsp;BY</p>
+
+                  <p class="credits-line">DIRECTED BY</p>
                   <p class="credits-name">YOU</p>
-                  <p class="credits-line">WRITTEN&nbsp;BY</p>
+
+                  <p class="credits-line">WRITTEN BY</p>
                   <p class="credits-name">LIFE</p>
-                  <p class="credits-line credits-thanks">thank you for watching</p>
+
+                  <p class="credits-thanks">
+                    thank you for watching
+                  </p>
                 </div>
-                <button class="watch-again" id="watchAgainBtn">&#8635; WATCH AGAIN</button>
+
+                <button class="watch-again" id="watchAgainBtn">
+                  ↻ WATCH AGAIN
+                </button>
+
               </section>
 
-            </div><!-- /.scenes -->
+            </div>
 
             <div class="crt-scanlines"></div>
             <div class="crt-vignette"></div>
             <div class="crt-glass-glare"></div>
-          </div><!-- /.tv-screen -->
-        </div><!-- /.tv-screen-bezel -->
 
-        <!-- control panel -->
+          </div>
+        </div>
+
         <div class="tv-controls">
-          <div class="knob" id="knobChannel"><div class="knob-notch"></div></div>
-          <div class="knob knob-small" id="knobVolume"><div class="knob-notch"></div></div>
+          <div class="knob" id="knobChannel">
+            <div class="knob-notch"></div>
+          </div>
+
+          <div class="knob knob-small" id="knobVolume">
+            <div class="knob-notch"></div>
+          </div>
+
           <div class="led" id="tvLed"></div>
         </div>
 
-      </div><!-- /.tv-chassis -->
+      </div>
 
-      <div class="tv-legs"><span></span><span></span></div>
-    </div><!-- /.tv-rig -->
+      <div class="tv-legs">
+        <span></span>
+        <span></span>
+      </div>
 
-    <!-- ===== FILM-REEL TIMELINE ===== -->
-    <nav class="timeline" id="timeline" aria-label="Story timeline">
+    </div>
+
+    <!-- TIMELINE -->
+    <nav class="timeline" id="timeline">
+
       <div class="timeline-track">
         <div class="timeline-fill" id="timelineFill"></div>
       </div>
+
       <ol class="timeline-list" id="timelineList">
-        <li data-index="0"><button><span class="tl-sprocket"></span><span class="tl-label">07:00<em>Wake Up</em></span></button></li>
-        <li data-index="1"><button><span class="tl-sprocket"></span><span class="tl-label">09:00<em>Morning</em></span></button></li>
-        <li data-index="2"><button><span class="tl-sprocket"></span><span class="tl-label">12:00<em>Lunch</em></span></button></li>
-        <li data-index="3"><button><span class="tl-sprocket"></span><span class="tl-label">15:00<em>Adventure</em></span></button></li>
-        <li data-index="4"><button><span class="tl-sprocket"></span><span class="tl-label">18:30<em>Golden Hour</em></span></button></li>
-        <li data-index="5"><button><span class="tl-sprocket"></span><span class="tl-label">21:00<em>Evening</em></span></button></li>
-        <li data-index="6"><button><span class="tl-sprocket"></span><span class="tl-label">23:30<em>Night</em></span></button></li>
-        <li data-index="7"><button><span class="tl-sprocket"></span><span class="tl-label">&#8734;<em>Credits</em></span></button></li>
+
+        <li data-index="0">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              07:00
+              <em>Wake Up</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="1">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              09:00
+              <em>Morning</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="2">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              12:00
+              <em>Lunch</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="3">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              15:00
+              <em>Adventure</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="4">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              18:30
+              <em>Golden Hour</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="5">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              21:00
+              <em>Evening</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="6">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              23:30
+              <em>Night</em>
+            </span>
+          </button>
+        </li>
+
+        <li data-index="7">
+          <button>
+            <span class="tl-sprocket"></span>
+            <span class="tl-label">
+              ∞
+              <em>Credits</em>
+            </span>
+          </button>
+        </li>
+
       </ol>
     </nav>
 
-  </div><!-- /.sticky-viewport -->
-</div><!-- /.scroll-container -->
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PART 2 — CULINARY FINALE
+     ============================================================ -->
+
+<section class="dish-builder" id="dishBuilder">
+
+  <div class="db-glow"></div>
+
+  <div class="db-inner">
+
+    <p class="db-eyebrow reveal-el">
+      one more scene before you go
+    </p>
+
+    <h2 class="db-headline reveal-el">
+      Every perfect day needs a signature flavor.
+      <br>
+      What will you create tonight?
+    </h2>
+
+    <!-- DISH CHOICE -->
+    <div class="db-step-1 reveal-el" id="dbStep1">
+
+      <button class="dish-card" data-dish="pizza">
+
+        <svg viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="35" fill="#d9a45c"/>
+          <circle cx="40" cy="40" r="28" fill="#b93f2d"/>
+          <circle cx="30" cy="31" r="6" fill="#f7e6b0"/>
+          <circle cx="50" cy="30" r="5" fill="#f7e6b0"/>
+          <circle cx="45" cy="51" r="6" fill="#f7e6b0"/>
+          <circle cx="28" cy="51" r="4" fill="#8a1f14"/>
+        </svg>
+
+        <span class="dish-name">
+          Handcrafted Pizza
+        </span>
+
+      </button>
+
+
+      <button class="dish-card" data-dish="cake">
+
+        <svg viewBox="0 0 80 80">
+
+          <ellipse
+            cx="40"
+            cy="66"
+            rx="28"
+            ry="6"
+            fill="#000"
+            opacity=".3"/>
+
+          <rect
+            x="18"
+            y="38"
+            width="44"
+            height="26"
+            rx="5"
+            fill="#60371f"/>
+
+          <path
+            d="M16 39 Q40 25 64 39 Q40 48 16 39Z"
+            fill="#fff7e7"/>
+
+          <circle cx="28" cy="28" r="4" fill="#c94a5a"/>
+          <circle cx="40" cy="24" r="4" fill="#e0aa42"/>
+          <circle cx="52" cy="29" r="4" fill="#c94a5a"/>
+
+        </svg>
+
+        <span class="dish-name">
+          Celebration Cake
+        </span>
+
+      </button>
+
+
+      <button class="dish-card" data-dish="noodles">
+
+        <svg viewBox="0 0 80 80">
+
+          <ellipse
+            cx="40"
+            cy="48"
+            rx="31"
+            ry="20"
+            fill="#a99a7c"/>
+
+          <ellipse
+            cx="40"
+            cy="43"
+            rx="25"
+            ry="15"
+            fill="#c9a15a"/>
+
+          <path
+            d="M20 42 Q28 27 36 42 T53 42"
+            fill="none"
+            stroke="#fff4df"
+            stroke-width="3"/>
+
+          <circle cx="52" cy="38" r="6" fill="#f4ede0"/>
+          <circle cx="52" cy="38" r="3" fill="#e99b32"/>
+
+        </svg>
+
+        <span class="dish-name">
+          Comfort Noodles
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- ========================================================
+         PREP STAGE
+         ======================================================== -->
+
+    <div class="stage-shell" id="stageShell">
+
+      <div class="spotlight"></div>
+
+      <div class="board" id="board">
+
+        <!-- CRITICAL: persistent centered stage -->
+        <div id="prep-stage">
+
+          <!-- HAND LEFT -->
+          <div class="hand-anchor hand-left" id="handLeft">
+            <div class="hand-rig" id="handRigL"></div>
+          </div>
+
+
+          <!-- CENTER PLATE -->
+          <div class="plate" id="dbPlate">
+
+            <div class="plate-base"></div>
+            <div class="plate-rim"></div>
+
+            <!-- Dish always gets injected here -->
+            <div class="dish-art" id="dishArt"></div>
+
+            <!-- Toppings are always above dish -->
+            <div id="toppings-layer"></div>
+
+          </div>
+
+
+          <!-- HAND RIGHT -->
+          <div class="hand-anchor hand-right" id="handRight">
+            <div class="hand-rig" id="handRigR"></div>
+          </div>
+
+
+          <!-- STEAM -->
+          <div class="steam-layer" id="steamLayer">
+
+            <div class="steam-wisp">
+              <svg viewBox="0 0 30 100">
+                <path
+                  d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="4"
+                  stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="steam-wisp">
+              <svg viewBox="0 0 30 100">
+                <path
+                  d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="4"
+                  stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="steam-wisp">
+              <svg viewBox="0 0 30 100">
+                <path
+                  d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="4"
+                  stroke-linecap="round"/>
+              </svg>
+            </div>
+
+          </div>
+
+
+          <!-- SPARKLES -->
+          <div
+            class="sparkles-layer"
+            id="sparklesLayer">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- OPTIONS PANEL -->
+    <div class="db-panel" id="dbPanel" hidden>
+
+      <div class="db-panel-row">
+        <span class="db-panel-label" id="baseLabel1">
+          Base
+        </span>
+
+        <div
+          class="db-base-chips"
+          id="baseChips1">
+        </div>
+      </div>
+
+
+      <div class="db-panel-row">
+        <span class="db-panel-label" id="baseLabel2">
+          Second layer
+        </span>
+
+        <div
+          class="db-base-chips"
+          id="baseChips2">
+        </div>
+      </div>
+
+
+      <div class="db-panel-row">
+
+        <span class="db-panel-label">
+          Toppings — click repeatedly to add
+        </span>
+
+        <div
+          class="topping-grid"
+          id="toppingGrid">
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- MAGIC -->
+    <button
+      class="db-cast-btn"
+      id="dbCastBtn"
+      hidden
+      disabled>
+
+      <span>✦</span>
+      Cast the Magic
+
+    </button>
+
+
+    <!-- RECEIPT -->
+    <div
+      class="db-receipt-wrap"
+      id="dbResult"
+      hidden>
+
+      <div
+        class="receipt"
+        id="receipt">
+      </div>
+
+      <button
+        id="dbAnotherBtn"
+        class="another-btn">
+
+        ↻ Make Another Dish
+
+      </button>
+
+    </div>
+
+  </div>
+</section>
+
 
 <script src="script.js"></script>
+
 </body>
 </html>
