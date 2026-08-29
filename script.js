@@ -1,8 +1,7 @@
 "use strict";
 
 /* ============================================================
-   PART 1
-   TV STORY
+   PART 1 — TV STORY & MAGICAL WORLD
    ============================================================ */
 
 const PH = {
@@ -16,66 +15,46 @@ const PH = {
 
 const SCENE_COUNT = 8;
 
-const scrollContainer =
-  document.getElementById("scrollContainer");
+const scrollContainer = document.getElementById("scrollContainer");
+const introTitle = document.getElementById("introTitle");
 
-const introTitle =
-  document.getElementById("introTitle");
+const auroraPrimary = document.getElementById("auroraPrimary");
+const auroraSecondary = document.getElementById("auroraSecondary");
+const radiantCore = document.getElementById("radiantCore");
+const ambientGlow = document.getElementById("ambientGlow");
 
-const ambientGlow =
-  document.getElementById("ambientGlow");
+const wireLeftBase = document.getElementById("wireLeftBase");
+const wireRightBase = document.getElementById("wireRightBase");
+const wireLeftTexture = document.getElementById("wireLeftTexture");
+const wireRightTexture = document.getElementById("wireRightTexture");
+const wireLeftHighlight = document.getElementById("wireLeftHighlight");
+const wireRightHighlight = document.getElementById("wireRightHighlight");
 
-const wireLeft =
-  document.getElementById("wireLeft");
+const wireShadowLeft = document.getElementById("wireShadowLeft");
+const wireShadowRight = document.getElementById("wireShadowRight");
 
-const wireRight =
-  document.getElementById("wireRight");
+const plugLeftGroup = document.getElementById("plugLeftGroup");
+const plugRightGroup = document.getElementById("plugRightGroup");
 
-const plugLeft =
-  document.getElementById("plugLeft");
+const spark = document.getElementById("spark");
+const tvRig = document.getElementById("tvRig");
+const tvLed = document.getElementById("tvLed");
 
-const plugRight =
-  document.getElementById("plugRight");
+const crtStatic = document.getElementById("crtStatic");
+const crtBzzt = document.getElementById("crtBzzt");
 
-const spark =
-  document.getElementById("spark");
+const knobChannel = document.getElementById("knobChannel");
+const knobVolume = document.getElementById("knobVolume");
 
-const tvRig =
-  document.getElementById("tvRig");
-
-const tvLed =
-  document.getElementById("tvLed");
-
-const crtStatic =
-  document.getElementById("crtStatic");
-
-const crtBzzt =
-  document.getElementById("crtBzzt");
-
-const knobChannel =
-  document.getElementById("knobChannel");
-
-const knobVolume =
-  document.getElementById("knobVolume");
-
-const timeline =
-  document.getElementById("timeline");
-
-const timelineFill =
-  document.getElementById("timelineFill");
-
-const timelineItems =
-  document.querySelectorAll("#timelineList li");
-
-const scenes =
-  document.querySelectorAll(".scene");
-
-const clockDigits =
-  document.getElementById("clockDigits");
+const timeline = document.getElementById("timeline");
+const timelineFill = document.getElementById("timelineFill");
+const timelineItems = document.querySelectorAll("#timelineList li");
+const scenes = document.querySelectorAll(".scene");
+const clockDigits = document.getElementById("clockDigits");
 
 
 /* ------------------------------------------------------------
-   Decorative particles
+   Decorative & Space Dust Particles
    ------------------------------------------------------------ */
 
 function random(min, max) {
@@ -83,696 +62,361 @@ function random(min, max) {
 }
 
 function scatter(container, amount, factory) {
-
   if (!container) return;
-
-  const fragment =
-    document.createDocumentFragment();
-
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < amount; i++) {
     fragment.appendChild(factory(i));
   }
-
   container.appendChild(fragment);
 }
 
+scatter(
+  document.getElementById("spaceDust"),
+  35,
+  () => {
+    const el = document.createElement("span");
+    const size = random(3, 7);
+    el.style.width = size + "px";
+    el.style.height = size + "px";
+    el.style.left = random(2, 98) + "%";
+    el.style.top = random(5, 95) + "%";
+    el.style.animationDuration = random(6, 14) + "s";
+    el.style.animationDelay = random(0, 8) + "s";
+    return el;
+  }
+);
 
 scatter(
   document.getElementById("dustMotes"),
   25,
   () => {
-
-    const el =
-      document.createElement("span");
-
-    el.style.left =
-      random(5,95) + "%";
-
-    el.style.top =
-      random(10,70) + "%";
-
-    el.style.animationDelay =
-      random(0,5) + "s";
-
+    const el = document.createElement("span");
+    el.style.left = random(5,95) + "%";
+    el.style.top = random(10,70) + "%";
+    el.style.animationDelay = random(0,5) + "s";
     return el;
   }
 );
-
 
 scatter(
   document.getElementById("cloudsLayer"),
   6,
   () => {
-
-    const el =
-      document.createElement("span");
-
-    el.style.top =
-      random(5,45) + "%";
-
-    el.style.width =
-      random(60,140) + "px";
-
-    el.style.height =
-      random(25,55) + "px";
-
-    el.style.animationDuration =
-      random(30,55) + "s";
-
+    const el = document.createElement("span");
+    el.style.top = random(5,45) + "%";
+    el.style.width = random(60,140) + "px";
+    el.style.height = random(25,55) + "px";
+    el.style.animationDuration = random(30,55) + "s";
     return el;
   }
 );
-
 
 scatter(
   document.getElementById("birdsLayer"),
   5,
   () => {
-
-    const el =
-      document.createElement("span");
-
-    el.style.top =
-      random(10,40) + "%";
-
-    el.style.left =
-      random(0,80) + "%";
-
-    el.style.animationDelay =
-      random(0,8) + "s";
-
+    const el = document.createElement("span");
+    el.style.top = random(10,40) + "%";
+    el.style.left = random(0,80) + "%";
+    el.style.animationDelay = random(0,8) + "s";
     return el;
   }
 );
-
 
 scatter(
   document.getElementById("starsLayer"),
   70,
   () => {
-
-    const el =
-      document.createElement("span");
-
-    el.style.left =
-      random(0,100) + "%";
-
-    el.style.top =
-      random(0,80) + "%";
-
-    el.style.animationDelay =
-      random(0,4) + "s";
-
+    const el = document.createElement("span");
+    el.style.left = random(0,100) + "%";
+    el.style.top = random(0,80) + "%";
+    el.style.animationDelay = random(0,4) + "s";
     return el;
   }
 );
-
 
 scatter(
   document.getElementById("notesLayer"),
   8,
   () => {
-
-    const el =
-      document.createElement("span");
-
-    el.textContent =
-      Math.random() > .5
-        ? "♪"
-        : "♫";
-
-    el.style.left =
-      random(35,70) + "%";
-
-    el.style.bottom =
-      random(20,40) + "%";
-
-    el.style.animationDelay =
-      random(0,4) + "s";
-
+    const el = document.createElement("span");
+    el.textContent = Math.random() > .5 ? "♪" : "♫";
+    el.style.left = random(35,70) + "%";
+    el.style.bottom = random(20,40) + "%";
+    el.style.animationDelay = random(0,4) + "s";
     return el;
   }
 );
 
 
 /* ------------------------------------------------------------
-   Wires
+   Tactile Braided Cable Physics & Plug Motion
    ------------------------------------------------------------ */
 
 const WIRE = {
-  leftStartX: 250,
-  rightStartX: 750,
+  leftStartX: 200,
+  rightStartX: 800,
   centerX: 500,
   meetY: 300,
-  topY: -20
+  topY: -40
 };
 
 function updateWires(t) {
+  const lx = WIRE.leftStartX + (WIRE.centerX - 15 - WIRE.leftStartX) * t;
+  const rx = WIRE.rightStartX + (WIRE.centerX + 15 - WIRE.rightStartX) * t;
 
-  const lx =
-    WIRE.leftStartX +
-    (WIRE.centerX - 30 - WIRE.leftStartX) * t;
+  const sag = (1 - t) * 75;
+  const ly = WIRE.meetY + sag;
+  const ry = WIRE.meetY + sag;
 
-  const rx =
-    WIRE.rightStartX +
-    (WIRE.centerX + 30 - WIRE.rightStartX) * t;
+  const dLeft = `M ${WIRE.leftStartX} ${WIRE.topY} C ${WIRE.leftStartX + 30} 120, ${lx - 110} ${ly + 55}, ${lx - 44} ${ly}`;
+  const dRight = `M ${WIRE.rightStartX} ${WIRE.topY} C ${WIRE.rightStartX - 30} 120, ${rx + 110} ${ry + 55}, ${rx + 38} ${ry}`;
 
-  const ly =
-    WIRE.meetY - 20 * t;
+  wireShadowLeft.setAttribute("d", dLeft);
+  wireShadowRight.setAttribute("d", dRight);
 
-  const ry =
-    WIRE.meetY - 20 * t;
+  wireLeftBase.setAttribute("d", dLeft);
+  wireRightBase.setAttribute("d", dRight);
 
-  wireLeft.setAttribute(
-    "d",
-    `
-      M ${WIRE.leftStartX} ${WIRE.topY}
-      C ${WIRE.leftStartX} 150,
-        ${lx - 40} ${ly - 60},
-        ${lx} ${ly}
-    `
-  );
+  wireLeftTexture.setAttribute("d", dLeft);
+  wireRightTexture.setAttribute("d", dRight);
 
-  wireRight.setAttribute(
-    "d",
-    `
-      M ${WIRE.rightStartX} ${WIRE.topY}
-      C ${WIRE.rightStartX} 150,
-        ${rx + 40} ${ry - 60},
-        ${rx} ${ry}
-    `
-  );
+  wireLeftHighlight.setAttribute("d", dLeft);
+  wireRightHighlight.setAttribute("d", dRight);
 
-  plugLeft.setAttribute("cx", lx);
-  plugLeft.setAttribute("cy", ly);
+  const angleL = (1 - t) * -16;
+  const angleR = (1 - t) * 16;
 
-  plugRight.setAttribute("cx", rx);
-  plugRight.setAttribute("cy", ry);
+  plugLeftGroup.setAttribute("transform", `translate(${lx}, ${ly}) rotate(${angleL})`);
+  plugRightGroup.setAttribute("transform", `translate(${rx}, ${ry}) rotate(${angleR})`);
 
-  const connected = t >= .995;
-
-  plugLeft.style.fill =
-    connected
-      ? "#ffe6ad"
-      : "#2a2118";
-
-  plugRight.style.fill =
-    connected
-      ? "#ffe6ad"
-      : "#2a2118";
-
-  plugLeft.style.filter =
-    connected
-      ? "drop-shadow(0 0 8px #ffcf6b)"
-      : "none";
-
-  plugRight.style.filter =
-    connected
-      ? "drop-shadow(0 0 8px #ffcf6b)"
-      : "none";
+  const connected = t >= 0.995;
+  plugLeftGroup.classList.toggle("connected", connected);
+  plugRightGroup.classList.toggle("connected", connected);
 }
-
 
 let sparkActive = false;
 
 function updateSpark(active) {
-
   if (active && !sparkActive) {
-
     spark.classList.add("active");
-
     sparkActive = true;
   }
 
   if (!active && sparkActive) {
-
     spark.classList.remove("active");
-
     sparkActive = false;
   }
 }
 
 
 /* ------------------------------------------------------------
-   TV rendering
+   Dynamic Magical Background Aurora Color Map
    ------------------------------------------------------------ */
 
-/* Brighter, more saturated ambient colors matching the new sky palette */
-const glowColors = [
-  [147,65,127],
-  [47,158,224],
-  [138,74,46],
-  [47,143,224],
-  [194,46,110],
-  [88,44,110],
-  [26,33,96],
-  [8,8,16]
+const sceneAtmospheres = [
+  { p: [255, 95, 150], s: [140, 60, 255], core: [255, 185, 100] },
+  { p: [0, 210, 255],  s: [90, 240, 180], core: [255, 245, 160] },
+  { p: [255, 160, 60], s: [255, 90, 110], core: [255, 210, 130] },
+  { p: [50, 180, 255], s: [60, 240, 210], core: [255, 230, 170] },
+  { p: [255, 70, 50],  s: [255, 190, 40], core: [255, 130, 70]  },
+  { p: [180, 60, 255], s: [255, 60, 180], core: [140, 190, 255] },
+  { p: [70, 100, 255], s: [130, 60, 255], core: [200, 225, 255] },
+  { p: [255, 180, 80], s: [255, 60, 140], core: [255, 215, 130] }
 ];
 
-function lerp(a,b,t) {
-  return a + (b-a) * t;
+function lerp(a, b, t) {
+  return a + (b - a) * t;
 }
 
-function getGlow(sceneFloat) {
+function getInterpolatedColors(sceneFloat) {
+  const i = Math.floor(sceneFloat);
+  const f = sceneFloat - i;
+  const a = sceneAtmospheres[Math.max(0, Math.min(sceneAtmospheres.length - 1, i))];
+  const b = sceneAtmospheres[Math.max(0, Math.min(sceneAtmospheres.length - 1, i + 1))];
 
-  const i =
-    Math.floor(sceneFloat);
-
-  const f =
-    sceneFloat - i;
-
-  const a =
-    glowColors[
-      Math.max(
-        0,
-        Math.min(
-          glowColors.length-1,
-          i
-        )
-      )
-    ];
-
-  const b =
-    glowColors[
-      Math.max(
-        0,
-        Math.min(
-          glowColors.length-1,
-          i+1
-        )
-      )
-    ];
-
-  return [
-    Math.round(lerp(a[0],b[0],f)),
-    Math.round(lerp(a[1],b[1],f)),
-    Math.round(lerp(a[2],b[2],f))
-  ];
+  return {
+    p: [
+      Math.round(lerp(a.p[0], b.p[0], f)),
+      Math.round(lerp(a.p[1], b.p[1], f)),
+      Math.round(lerp(a.p[2], b.p[2], f))
+    ],
+    s: [
+      Math.round(lerp(a.s[0], b.s[0], f)),
+      Math.round(lerp(a.s[1], b.s[1], f)),
+      Math.round(lerp(a.s[2], b.s[2], f))
+    ],
+    core: [
+      Math.round(lerp(a.core[0], b.core[0], f)),
+      Math.round(lerp(a.core[1], b.core[1], f)),
+      Math.round(lerp(a.core[2], b.core[2], f))
+    ]
+  };
 }
-
 
 let ticking = false;
 let bzztShown = false;
 
 function renderTV() {
-
   ticking = false;
 
-  const maxScroll =
-    scrollContainer.offsetHeight -
-    window.innerHeight;
-
-  let progress =
-    maxScroll > 0
-      ? window.scrollY / maxScroll
-      : 0;
-
-  progress =
-    Math.max(
-      0,
-      Math.min(1,progress)
-    );
-
+  const maxScroll = scrollContainer.offsetHeight - window.innerHeight;
+  let progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  progress = Math.max(0, Math.min(1, progress));
 
   /* INTRO */
-
-  const introT =
-    Math.min(
-      1,
-      progress / PH.introEnd
-    );
-
-  introTitle.style.opacity =
-    String(1-introT);
-
-  introTitle.style.transform =
-    `
-      translate(-50%,-50%)
-      translateY(${-introT*30}px)
-    `;
-
+  const introT = Math.min(1, progress / PH.introEnd);
+  introTitle.style.opacity = String(1 - introT);
+  introTitle.style.transform = `translate(-50%,-50%) translateY(${-introT * 30}px)`;
 
   /* WIRES */
-
-  const wireT =
-    Math.max(
-      0,
-      Math.min(
-        1,
-        progress / PH.wireEnd
-      )
-    );
-
+  const wireT = Math.max(0, Math.min(1, progress / PH.wireEnd));
   updateWires(wireT);
-
-  updateSpark(
-    wireT >= .995
-  );
-
-  tvLed.classList.toggle(
-    "on",
-    wireT >= .995
-  );
-
+  updateSpark(wireT >= 0.995);
+  tvLed.classList.toggle("on", wireT >= 0.995);
 
   /* TV REVEAL */
-
-  const revealT =
-    Math.max(
-      0,
-      Math.min(
-        1,
-        (progress-PH.wireEnd) /
-        (PH.tvRevealEnd-PH.wireEnd)
-      )
-    );
-
-  tvRig.style.opacity =
-    revealT;
-
-  tvRig.style.transform =
-    `
-      scale(${.6+.4*revealT})
-      translateY(${40*(1-revealT)}px)
-    `;
-
-  timeline.style.opacity =
-    revealT;
-
+  const revealT = Math.max(0, Math.min(1, (progress - PH.wireEnd) / (PH.tvRevealEnd - PH.wireEnd)));
+  tvRig.style.opacity = revealT;
+  tvRig.style.transform = `scale(${0.6 + 0.4 * revealT}) translateY(${40 * (1 - revealT)}px)`;
+  timeline.style.opacity = revealT;
 
   /* CRT */
-
-  const booting =
-    progress >= PH.tvRevealEnd &&
-    progress < PH.bzztEnd;
-
-  crtStatic.classList.toggle(
-    "active",
-    booting
-  );
+  const booting = progress >= PH.tvRevealEnd && progress < PH.bzztEnd;
+  crtStatic.classList.toggle("active", booting);
 
   if (booting && !bzztShown) {
-
     crtBzzt.classList.remove("active");
-
     void crtBzzt.offsetWidth;
-
     crtBzzt.classList.add("active");
-
     bzztShown = true;
   }
 
   if (progress < PH.tvRevealEnd) {
-
     bzztShown = false;
-
     crtBzzt.classList.remove("active");
   }
 
+  /* STORY PROGRESSION */
+  let storyT = Math.max(0, Math.min(1, (progress - PH.storyStart) / (PH.storyEnd - PH.storyStart)));
+  let sceneFloat = storyT * (SCENE_COUNT - 1);
 
-  /* STORY */
-
-  let storyT =
-    Math.max(
-      0,
-      Math.min(
-        1,
-        (progress-PH.storyStart) /
-        (PH.storyEnd-PH.storyStart)
-      )
-    );
-
-  let sceneFloat =
-    storyT *
-    (SCENE_COUNT-1);
-
-  if (progress < PH.storyStart)
-    sceneFloat = 0;
-
-  if (progress >= PH.storyEnd)
-    sceneFloat = SCENE_COUNT-1;
-
+  if (progress < PH.storyStart) sceneFloat = 0;
+  if (progress >= PH.storyEnd) sceneFloat = SCENE_COUNT - 1;
 
   scenes.forEach(scene => {
+    const index = Number(scene.dataset.scene);
+    const distance = Math.abs(sceneFloat - index);
+    const opacity = Math.max(0, 1 - distance * 1.35);
 
-    const index =
-      Number(
-        scene.dataset.scene
-      );
-
-    const distance =
-      Math.abs(
-        sceneFloat-index
-      );
-
-    const opacity =
-      Math.max(
-        0,
-        1-distance*1.35
-      );
-
-    scene.style.opacity =
-      opacity;
-
-    scene.style.zIndex =
-      10-Math.round(distance);
+    scene.style.opacity = opacity;
+    scene.style.zIndex = 10 - Math.round(distance);
   });
 
-
   /* CLOCK */
+  clockDigits.textContent = sceneFloat > 0.4 ? "07:00" : "06:59";
 
-  clockDigits.textContent =
-    sceneFloat > .4
-      ? "07:00"
-      : "06:59";
+  /* MAGICAL VIBRANT BACKGROUND UPDATE */
+  const colors = getInterpolatedColors(sceneFloat);
 
+  auroraPrimary.style.background = `
+    radial-gradient(circle at 30% 40%, rgba(${colors.p[0]}, ${colors.p[1]}, ${colors.p[2]}, 0.55), transparent 60%)
+  `;
 
-  /* AMBIENT */
+  auroraSecondary.style.background = `
+    radial-gradient(circle at 70% 60%, rgba(${colors.s[0]}, ${colors.s[1]}, ${colors.s[2]}, 0.6), transparent 60%)
+  `;
 
-  const c =
-    getGlow(sceneFloat);
+  radiantCore.style.background = `
+    radial-gradient(ellipse at center, rgba(${colors.core[0]}, ${colors.core[1]}, ${colors.core[2]}, 0.4) 0%, rgba(${colors.p[0]}, ${colors.p[1]}, ${colors.p[2]}, 0.22) 45%, transparent 75%)
+  `;
 
-  ambientGlow.style.background =
-    `
-      radial-gradient(
-        circle at 50% 55%,
-        rgba(
-          ${c[0]},
-          ${c[1]},
-          ${c[2]},
-          .5
-        ),
-        transparent 62%
-      )
-    `;
-
+  ambientGlow.style.background = `
+    radial-gradient(circle at 50% 50%, rgba(${colors.core[0]}, ${colors.core[1]}, ${colors.core[2]}, 0.3), transparent 70%)
+  `;
 
   /* KNOBS */
-
-  const activeIndex =
-    Math.round(sceneFloat);
-
-  knobChannel.style.transform =
-    `rotate(${activeIndex*42}deg)`;
-
-  knobVolume.style.transform =
-    `rotate(${-activeIndex*30}deg)`;
-
+  const activeIndex = Math.round(sceneFloat);
+  knobChannel.style.transform = `rotate(${activeIndex * 42}deg)`;
+  knobVolume.style.transform = `rotate(${-activeIndex * 30}deg)`;
 
   /* TIMELINE */
-
-  const fill =
-    Math.max(
-      0,
-      Math.min(
-        1,
-        activeIndex/(SCENE_COUNT-1)
-      )
-    ) * 100;
-
-  timelineFill.style.setProperty(
-    "--fill",
-    fill + "%"
-  );
+  const fill = Math.max(0, Math.min(1, activeIndex / (SCENE_COUNT - 1))) * 100;
+  timelineFill.style.setProperty("--fill", fill + "%");
 
   timelineItems.forEach(li => {
-
-    const index =
-      Number(li.dataset.index);
-
-    li.classList.toggle(
-      "active",
-      index === activeIndex &&
-      progress >= PH.storyStart
-    );
+    const index = Number(li.dataset.index);
+    li.classList.toggle("active", index === activeIndex && progress >= PH.storyStart);
   });
 }
 
-
 function requestTVRender() {
-
   if (!ticking) {
-
-    requestAnimationFrame(
-      renderTV
-    );
-
+    requestAnimationFrame(renderTV);
     ticking = true;
   }
 }
 
-window.addEventListener(
-  "scroll",
-  requestTVRender,
-  { passive:true }
-);
-
-window.addEventListener(
-  "resize",
-  requestTVRender
-);
-
-
-/* ------------------------------------------------------------
-   Timeline navigation
-   ------------------------------------------------------------ */
+window.addEventListener("scroll", requestTVRender, { passive: true });
+window.addEventListener("resize", requestTVRender);
 
 function goToScene(index) {
-
-  const maxScroll =
-    scrollContainer.offsetHeight -
-    window.innerHeight;
-
-  const t =
-    index /
-    (SCENE_COUNT-1);
-
-  const progress =
-    PH.storyStart +
-    t *
-    (PH.storyEnd-PH.storyStart);
+  const maxScroll = scrollContainer.offsetHeight - window.innerHeight;
+  const t = index / (SCENE_COUNT - 1);
+  const progress = PH.storyStart + t * (PH.storyEnd - PH.storyStart);
 
   window.scrollTo({
-    top: progress*maxScroll,
+    top: progress * maxScroll,
     behavior: "smooth"
   });
 }
 
-
 timelineItems.forEach(li => {
-
-  li.querySelector("button")
-    .addEventListener(
-      "click",
-      () => {
-        goToScene(
-          Number(li.dataset.index)
-        );
-      }
-    );
+  li.querySelector("button").addEventListener("click", () => {
+    goToScene(Number(li.dataset.index));
+  });
 });
 
-
-document
-  .getElementById("watchAgainBtn")
-  .addEventListener(
-    "click",
-    () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-  );
-
+document.getElementById("watchAgainBtn").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
 
 renderTV();
 
 
 /* ============================================================
-   PART 2
-   CULINARY BUILDER
+   PART 2 — DYNAMIC REACTIVE CULINARY ART ENGINE
    ============================================================ */
 
-const dbStep1 =
-  document.getElementById("dbStep1");
-
-const dbPanel =
-  document.getElementById("dbPanel");
-
-const baseLabel1 =
-  document.getElementById("baseLabel1");
-
-const baseLabel2 =
-  document.getElementById("baseLabel2");
-
-const baseChips1 =
-  document.getElementById("baseChips1");
-
-const baseChips2 =
-  document.getElementById("baseChips2");
-
-const toppingGrid =
-  document.getElementById("toppingGrid");
-
-const dbCastBtn =
-  document.getElementById("dbCastBtn");
-
-const stageShell =
-  document.getElementById("stageShell");
-
-const dbPlate =
-  document.getElementById("dbPlate");
-
-const dishArt =
-  document.getElementById("dishArt");
-
-const toppingsLayer =
-  document.getElementById("toppings-layer");
-
-const sparklesLayer =
-  document.getElementById("sparklesLayer");
-
-const steamLayer =
-  document.getElementById("steamLayer");
-
-const dbResult =
-  document.getElementById("dbResult");
-
-const receipt =
-  document.getElementById("receipt");
-
-const handRigL =
-  document.getElementById("handRigL");
-
-const handRigR =
-  document.getElementById("handRigR");
-
-const handLeft =
-  document.getElementById("handLeft");
-
-const handRight =
-  document.getElementById("handRight");
-
+const dbStep1 = document.getElementById("dbStep1");
+const dbPanel = document.getElementById("dbPanel");
+const baseLabel1 = document.getElementById("baseLabel1");
+const baseLabel2 = document.getElementById("baseLabel2");
+const baseChips1 = document.getElementById("baseChips1");
+const baseChips2 = document.getElementById("baseChips2");
+const toppingGrid = document.getElementById("toppingGrid");
+const dbCastBtn = document.getElementById("dbCastBtn");
+const stageShell = document.getElementById("stageShell");
+const dbPlate = document.getElementById("dbPlate");
+const dishArt = document.getElementById("dishArt");
+const toppingsLayer = document.getElementById("toppings-layer");
+const sparklesLayer = document.getElementById("sparklesLayer");
+const steamLayer = document.getElementById("steamLayer");
+const dbResult = document.getElementById("dbResult");
+const receipt = document.getElementById("receipt");
+const handRigL = document.getElementById("handRigL");
+const handRigR = document.getElementById("handRigR");
+const handLeft = document.getElementById("handLeft");
+const handRight = document.getElementById("handRight");
 
 let currentDish = null;
-
 let baseSelections = {};
-
 let toppingCounts = {};
-
 let toppingIndex = 0;
-
 let served = false;
-
-/* Warm, energetic colors the magic sparkles cycle through */
-const SPARKLE_COLORS = [
-  "#ffb636",
-  "#ff3f9e",
-  "#33e6d6",
-  "#ffe066",
-  "#c6ff4d"
-];
 
 
 /* ============================================================
@@ -780,602 +424,348 @@ const SPARKLE_COLORS = [
    ============================================================ */
 
 function handSVG(id) {
-
   return `
-  <svg
-    viewBox="0 0 160 210"
-    xmlns="http://www.w3.org/2000/svg">
-
+  <svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
     <defs>
-
-      <linearGradient
-        id="skin-${id}"
-        x1="0"
-        y1="0"
-        x2="1"
-        y2="1">
-
-        <stop
-          offset="0%"
-          stop-color="#f6d2a6"/>
-
-        <stop
-          offset="55%"
-          stop-color="#e2ab7c"/>
-
-        <stop
-          offset="100%"
-          stop-color="#b17d52"/>
-
+      <linearGradient id="skin-${id}" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f5d3b3"/>
+        <stop offset="55%" stop-color="#e0aa82"/>
+        <stop offset="100%" stop-color="#ab7752"/>
       </linearGradient>
 
-      <linearGradient
-        id="cuff-${id}"
-        x1="0"
-        y1="0"
-        x2="0"
-        y2="1">
-
-        <stop
-          offset="0%"
-          stop-color="#fff6e6"/>
-
-        <stop
-          offset="100%"
-          stop-color="#ecdcb8"/>
-
+      <linearGradient id="cuff-${id}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fdf9f0"/>
+        <stop offset="100%" stop-color="#cfc3a7"/>
       </linearGradient>
-
     </defs>
 
-
-    <!-- sleeve -->
-
-    <rect
-      x="48"
-      y="150"
-      width="68"
-      height="60"
-      rx="14"
-      fill="url(#cuff-${id})"/>
-
-    <rect
-      x="48"
-      y="176"
-      width="68"
-      height="8"
-      fill="#ffcf6b"
-      opacity=".65"/>
-
-
-    <!-- fingers -->
+    <rect x="46" y="148" width="72" height="62" rx="15" fill="url(#cuff-${id})"/>
+    <rect x="46" y="174" width="72" height="9" fill="#e0b35e" opacity=".75"/>
 
     <g>
-
-      <path
-        d="
-          M50 168
-          C40 160 36 140 40 118
-          C42 104 52 100 58 108
-          C63 115 62 138 60 158
-          C59 165 55 169 50 168Z
-        "
-        fill="url(#skin-${id})"/>
-
-      <path
-        d="
-          M66 170
-          C55 160 52 128 55 100
-          C57 84 70 80 76 90
-          C80 98 79 130 76 160
-          C75 167 71 171 66 170Z
-        "
-        fill="url(#skin-${id})"/>
-
-      <path
-        d="
-          M84 172
-          C74 163 71 132 75 104
-          C78 88 91 84 96 94
-          C100 102 98 132 95 162
-          C93 169 89 173 84 172Z
-        "
-        fill="url(#skin-${id})"/>
-
-      <path
-        d="
-          M100 174
-          C92 166 90 146 93 124
-          C95 111 106 108 110 117
-          C113 125 112 148 109 164
-          C108 170 104 175 100 174Z
-        "
-        fill="url(#skin-${id})"/>
-
+      <path d="M50 168 C40 160 36 140 40 118 C42 104 52 100 58 108 C63 115 62 138 60 158 C59 165 55 169 50 168Z" fill="url(#skin-${id})"/>
+      <path d="M66 170 C55 160 52 128 55 100 C57 84 70 80 76 90 C80 98 79 130 76 160 C75 167 71 171 66 170Z" fill="url(#skin-${id})"/>
+      <path d="M84 172 C74 163 71 132 75 104 C78 88 91 84 96 94 C100 102 98 132 95 162 C93 169 89 173 84 172Z" fill="url(#skin-${id})"/>
+      <path d="M100 174 C92 166 90 146 93 124 C95 111 106 108 110 117 C113 125 112 148 109 164 C108 170 104 175 100 174Z" fill="url(#skin-${id})"/>
     </g>
 
+    <path d="M40 168 C36 178 40 196 58 200 L110 200 C126 198 128 180 116 170 C112 190 106 195 96 194 C88 193 90 182 84 180 C78 178 78 190 68 190 C58 190 60 178 54 174 C48 170 44 166 40 168Z" fill="url(#skin-${id})"/>
+    <path d="M42 176 C28 172 16 158 18 144 C19 136 28 133 33 140 C38 147 38 156 46 164 C50 168 48 175 42 176Z" fill="url(#skin-${id})"/>
 
-    <!-- palm -->
-
-    <path
-      d="
-        M40 168
-        C36 178 40 196 58 200
-        L110 200
-        C126 198 128 180 116 170
-        C112 190 106 195 96 194
-        C88 193 90 182 84 180
-        C78 178 78 190 68 190
-        C58 190 60 178 54 174
-        C48 170 44 166 40 168Z
-      "
-      fill="url(#skin-${id})"/>
-
-
-    <!-- thumb -->
-
-    <path
-      d="
-        M42 176
-        C28 172 16 158 18 144
-        C19 136 28 133 33 140
-        C38 147 38 156 46 164
-        C50 168 48 175 42 176Z
-      "
-      fill="url(#skin-${id})"/>
-
-
-    <!-- fingers details -->
-
-    <g
-      fill="none"
-      stroke="#784a32"
-      stroke-width="1.3"
-      opacity=".35">
-
+    <g fill="none" stroke="#784a32" stroke-width="1.3" opacity=".35">
       <path d="M43 128q6 3 11 0"/>
       <path d="M59 118q7 4 13 0"/>
       <path d="M78 120q7 4 12 0"/>
       <path d="M95 136q6 3 11 0"/>
-
     </g>
-
   </svg>
   `;
 }
 
-
-handRigL.innerHTML =
-  handSVG("left");
-
-handRigR.innerHTML =
-  handSVG("right");
+handRigL.innerHTML = handSVG("left");
+handRigR.innerHTML = handSVG("right");
 
 
 /* ============================================================
-   DISH SVG ART
+   REACTIVE DISH ART GENERATOR (Updates on Base/Sauce Clicks)
    ============================================================ */
 
-const DISH_ART = {
+function renderDynamicDishArt() {
+  if (!currentDish) return "";
 
-  pizza() {
+  const sel1 = baseSelections[DISH_DATA[currentDish].bases[0].key];
+  const sel2 = baseSelections[DISH_DATA[currentDish].bases[1].key];
 
-    return `
-    <svg viewBox="0 0 200 200">
-
-      <defs>
-
-        <radialGradient
-          id="pizzaCrust"
-          cx="35%"
-          cy="30%"
-          r="75%">
-
-          <stop
-            offset="0%"
-            stop-color="#ffdd9e"/>
-
-          <stop
-            offset="60%"
-            stop-color="#eeae5c"/>
-
-          <stop
-            offset="100%"
-            stop-color="#b9711f"/>
-
-        </radialGradient>
-
-        <radialGradient
-          id="pizzaSauce"
-          cx="40%"
-          cy="35%"
-          r="70%">
-
-          <stop
-            offset="0%"
-            stop-color="#ff7a52"/>
-
-          <stop
-            offset="70%"
-            stop-color="#e2472f"/>
-
-          <stop
-            offset="100%"
-            stop-color="#9e2915"/>
-
-        </radialGradient>
-
-        <radialGradient
-          id="pizzaCheese"
-          cx="40%"
-          cy="30%"
-          r="70%">
-
-          <stop
-            offset="0%"
-            stop-color="#fffbe4"/>
-
-          <stop
-            offset="100%"
-            stop-color="#ffdd82"/>
-
-        </radialGradient>
-
-      </defs>
-
-
-      <!-- thick Neapolitan crust -->
-
-      <circle
-        cx="100"
-        cy="100"
-        r="96"
-        fill="url(#pizzaCrust)"/>
-
-
-      <!-- blister marks -->
-
-      <g
-        fill="#a3641f"
-        opacity=".6">
-
-        <circle cx="30" cy="70" r="5"/>
-        <circle cx="52" cy="25" r="4"/>
-        <circle cx="150" cy="28" r="5"/>
-        <circle cx="174" cy="92" r="4"/>
-        <circle cx="160" cy="150" r="5"/>
-        <circle cx="110" cy="180" r="4"/>
-        <circle cx="40" cy="150" r="5"/>
-
-      </g>
-
-
-      <!-- sauce -->
-
-      <circle
-        cx="100"
-        cy="100"
-        r="77"
-        fill="url(#pizzaSauce)"/>
-
-
-      <!-- bubbly cheese -->
-
-      <path
-        d="
-          M40 70
-          Q100 40 160 70
-          Q140 100 160 130
-          Q100 160 40 130
-          Q60 100 40 70Z
-        "
-        fill="url(#pizzaCheese)"
-        opacity=".7"/>
-
-
-      <circle
-        cx="70"
-        cy="70"
-        r="17"
-        fill="url(#pizzaCheese)"/>
-
-      <circle
-        cx="132"
-        cy="86"
-        r="13"
-        fill="url(#pizzaCheese)"/>
-
-      <circle
-        cx="96"
-        cy="140"
-        r="15"
-        fill="url(#pizzaCheese)"/>
-
-      <circle
-        cx="140"
-        cy="140"
-        r="11"
-        fill="url(#pizzaCheese)"/>
-
-
-      <!-- glossy oil sheen -->
-
-      <ellipse
-        cx="75"
-        cy="60"
-        rx="30"
-        ry="12"
-        fill="#fff"
-        opacity=".18"/>
-
-    </svg>
+  if (currentDish === "pizza") {
+    // 1. Crust Styles
+    let crustRadius = 104;
+    let crustFillGrad = `
+      <radialGradient id="dynCrust" cx="40%" cy="35%" r="68%">
+        <stop offset="0%" stop-color="#ffdfa4"/>
+        <stop offset="60%" stop-color="#e5a24b"/>
+        <stop offset="90%" stop-color="#b86923"/>
+        <stop offset="100%" stop-color="#733b0a"/>
+      </radialGradient>
     `;
-  },
-
-
-  cake() {
-
-    return `
-    <svg viewBox="0 0 200 200">
-
-      <defs>
-
-        <linearGradient
-          id="cakeSponge"
-          x1="0"
-          y1="0"
-          x2="0"
-          y2="1">
-
-          <stop
-            offset="0%"
-            stop-color="#8a5230"/>
-
-          <stop
-            offset="100%"
-            stop-color="#4a2814"/>
-
-        </linearGradient>
-
-        <linearGradient
-          id="cakeCream"
-          x1="0"
-          y1="0"
-          x2="0"
-          y2="1">
-
-          <stop
-            offset="0%"
-            stop-color="#ffffff"/>
-
-          <stop
-            offset="100%"
-            stop-color="#f0e2c0"/>
-
-        </linearGradient>
-
-      </defs>
-
-
-      <!-- pedestal -->
-
-      <ellipse
-        cx="100"
-        cy="180"
-        rx="72"
-        ry="9"
-        fill="#000"
-        opacity=".3"/>
-
-      <ellipse
-        cx="100"
-        cy="169"
-        rx="62"
-        ry="10"
-        fill="#fff2d8"/>
-
-      <path
-        d="
-          M70 168
-          Q100 155 130 168
-          L120 184
-          Q100 192 80 184Z
-        "
-        fill="#e8d6ae"/>
-
-
-      <!-- bottom tier -->
-
-      <rect
-        x="38"
-        y="112"
-        width="124"
-        height="55"
-        rx="10"
-        fill="url(#cakeSponge)"/>
-
-
-      <!-- cream layer -->
-
-      <path
-        d="
-          M38 112
-          Q100 96 162 112
-          Q150 124 162 135
-          Q100 150 38 135
-          Q50 124 38 112
-        "
-        fill="url(#cakeCream)"/>
-
-
-      <!-- top tier -->
-
-      <rect
-        x="50"
-        y="76"
-        width="100"
-        height="42"
-        rx="9"
-        fill="url(#cakeSponge)"/>
-
-
-      <!-- frosting -->
-
-      <path
-        d="
-          M46 78
-          Q100 52 154 78
-          Q142 92 154 104
-          Q100 119 46 104
-          Q58 92 46 78
-        "
-        fill="url(#cakeCream)"/>
-
-
-      <!-- frosting drips -->
-
-      <path
-        d="
-          M65 87
-          Q69 105 65 110
-          M100 77
-          Q104 98 100 111
-          M135 87
-          Q139 102 135 109
-        "
-        stroke="#e8d8b4"
-        stroke-width="5"
-        fill="none"
-        stroke-linecap="round"/>
-
-
-      <!-- glossy highlight -->
-
-      <ellipse
-        cx="80"
-        cy="60"
-        rx="26"
-        ry="8"
-        fill="#fff"
-        opacity=".5"/>
-
-    </svg>
-    `;
-  },
-
-
-  noodles() {
-
-    return `
-    <svg viewBox="0 0 200 200">
-
-      <defs>
-
-        <radialGradient
-          id="bowl"
-          cx="40%"
-          cy="30%"
-          r="75%">
-
-          <stop
-            offset="0%"
-            stop-color="#f7ecd4"/>
-
-          <stop
-            offset="100%"
-            stop-color="#a89670"/>
-
-        </radialGradient>
-
-        <radialGradient
-          id="broth"
-          cx="40%"
-          cy="30%"
-          r="75%">
-
-          <stop
-            offset="0%"
-            stop-color="#ffdf94"/>
-
-          <stop
-            offset="65%"
-            stop-color="#e8b444"/>
-
-          <stop
-            offset="100%"
-            stop-color="#8a621f"/>
-
-        </radialGradient>
-
-      </defs>
-
-
-      <!-- bowl -->
-
-      <ellipse
-        cx="100"
-        cy="108"
-        rx="94"
-        ry="78"
-        fill="url(#bowl)"/>
-
-
-      <!-- broth -->
-
-      <ellipse
-        cx="100"
-        cy="92"
-        rx="76"
-        ry="62"
-        fill="url(#broth)"/>
-
-
-      <!-- broth shine -->
-
-      <ellipse
-        cx="75"
-        cy="65"
-        rx="32"
-        ry="12"
-        fill="white"
-        opacity=".28"/>
-
-
-      <!-- noodles -->
-
-      <g
-        fill="none"
-        stroke="#fff8e4"
-        stroke-width="5"
-        stroke-linecap="round">
-
-        <path
-          d="M38 92 Q58 65 78 92 T120 92 T158 92"/>
-
-        <path
-          d="M40 115 Q60 88 82 115 T124 115 T158 108"/>
-
-        <path
-          d="M55 72 Q72 48 90 72 T128 72"/>
-
-        <path
-          d="M65 130 Q84 105 103 130 T140 124"/>
-
+    let crustDetails = `
+      <g fill="#421f06" opacity="0.65">
+        <circle cx="35" cy="75" r="5.5"/><circle cx="58" cy="28" r="4.5"/><circle cx="165" cy="32" r="5.5"/>
+        <circle cx="192" cy="100" r="4.5"/><circle cx="178" cy="165" r="5.5"/><circle cx="120" cy="198" r="5"/><circle cx="48" cy="165" r="5.5"/>
       </g>
+    `;
 
+    if (sel1 === "Neapolitan Thin") {
+      crustRadius = 101;
+      crustFillGrad = `
+        <radialGradient id="dynCrust" cx="42%" cy="38%" r="65%">
+          <stop offset="0%" stop-color="#fedaa2"/>
+          <stop offset="65%" stop-color="#cf7f29"/>
+          <stop offset="92%" stop-color="#783404"/>
+          <stop offset="100%" stop-color="#3b1700"/>
+        </radialGradient>
+      `;
+      crustDetails = `
+        <g fill="#210a00" opacity="0.85">
+          <ellipse cx="40" cy="70" rx="7" ry="4" transform="rotate(25 40 70)"/>
+          <ellipse cx="165" cy="40" rx="8" ry="4" transform="rotate(-30 165 40)"/>
+          <circle cx="185" cy="120" r="6"/><circle cx="80" cy="22" r="5"/><circle cx="140" cy="195" r="6"/>
+        </g>
+      `;
+    } else if (sel1 === "Cheesy Stuffed") {
+      crustRadius = 108;
+      crustFillGrad = `
+        <radialGradient id="dynCrust" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fff5cc"/>
+          <stop offset="50%" stop-color="#f5ba58"/>
+          <stop offset="85%" stop-color="#d9822b"/>
+          <stop offset="100%" stop-color="#8a470d"/>
+        </radialGradient>
+      `;
+      crustDetails = `
+        <circle cx="110" cy="110" r="102" fill="none" stroke="#fff8dc" stroke-width="6" opacity="0.45" stroke-dasharray="14 10"/>
+        <circle cx="110" cy="110" r="99" fill="none" stroke="#e08e24" stroke-width="2" opacity="0.6"/>
+      `;
+    }
+
+    // 2. Sauce Infusions
+    let sauceFill = `
+      <radialGradient id="dynSauce" cx="35%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#ff5938"/>
+        <stop offset="60%" stop-color="#d92814"/>
+        <stop offset="90%" stop-color="#991406"/>
+        <stop offset="100%" stop-color="#590600"/>
+      </radialGradient>
+    `;
+    let sauceAccents = `<circle cx="95" cy="70" r="8" fill="#ff7354" opacity="0.45"/><circle cx="140" cy="130" r="10" fill="#ff7354" opacity="0.45"/>`;
+
+    if (sel2 === "White Truffle Cream") {
+      sauceFill = `
+        <radialGradient id="dynSauce" cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="45%" stop-color="#f7eedc"/>
+          <stop offset="80%" stop-color="#ded0b4"/>
+          <stop offset="100%" stop-color="#998663"/>
+        </radialGradient>
+      `;
+      sauceAccents = `
+        <g fill="#423520" opacity="0.4">
+          <circle cx="95" cy="70" r="2.5"/><circle cx="130" cy="130" r="3"/><circle cx="80" cy="140" r="2"/><circle cx="140" cy="80" r="2.5"/><circle cx="110" cy="110" r="3"/>
+        </g>
+      `;
+    } else if (sel2 === "Basil Pesto") {
+      sauceFill = `
+        <radialGradient id="dynSauce" cx="38%" cy="32%" r="70%">
+          <stop offset="0%" stop-color="#80c944"/>
+          <stop offset="55%" stop-color="#4e991f"/>
+          <stop offset="88%" stop-color="#2a660a"/>
+          <stop offset="100%" stop-color="#143b02"/>
+        </radialGradient>
+      `;
+      sauceAccents = `
+        <g fill="#0e2601" opacity="0.5">
+          <circle cx="90" cy="75" r="3"/><circle cx="135" cy="125" r="3.5"/><circle cx="100" cy="145" r="2.5"/><circle cx="75" cy="115" r="3"/>
+        </g>
+      `;
+    }
+
+    return `
+    <svg viewBox="0 0 220 220">
+      <defs>
+        ${crustFillGrad}
+        ${sauceFill}
+        <radialGradient id="pzCheese" cx="38%" cy="32%" r="70%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="35%" stop-color="#fffce8"/>
+          <stop offset="70%" stop-color="#f7dc79"/>
+          <stop offset="100%" stop-color="#dfa938"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Crust Outer -->
+      <circle cx="110" cy="110" r="${crustRadius}" fill="url(#dynCrust)"/>
+      ${crustDetails}
+
+      <!-- Sauce Bed -->
+      <circle cx="110" cy="110" r="84" fill="url(#dynSauce)"/>
+      ${sauceAccents}
+
+      <!-- Molten Cheese Pools -->
+      <path d="M48 80 Q110 42 172 80 Q152 118 172 148 Q110 182 48 148 Q68 115 48 80Z" fill="url(#pzCheese)" opacity="0.88"/>
+      <circle cx="78" cy="78" r="18" fill="url(#pzCheese)"/>
+      <circle cx="145" cy="95" r="16" fill="url(#pzCheese)"/>
+      <circle cx="106" cy="155" r="18" fill="url(#pzCheese)"/>
+      <circle cx="155" cy="155" r="13" fill="url(#pzCheese)"/>
+      <circle cx="65" cy="135" r="14" fill="url(#pzCheese)"/>
+
+      <ellipse cx="80" cy="75" rx="10" ry="5" fill="#fff" opacity="0.45" transform="rotate(-15 80 75)"/>
+      <ellipse cx="145" cy="92" rx="8" ry="4" fill="#fff" opacity="0.45" transform="rotate(20 145 92)"/>
     </svg>
     `;
   }
 
-};
+  if (currentDish === "cake") {
+    // 1. Sponge Types
+    let spongeGrad = `
+      <linearGradient id="dynSponge" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#8a5332"/><stop offset="50%" stop-color="#69391e"/><stop offset="100%" stop-color="#3d1e0d"/>
+      </linearGradient>
+    `;
+    if (sel1 === "Madagascar Vanilla") {
+      spongeGrad = `
+        <linearGradient id="dynSponge" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fff0bd"/><stop offset="50%" stop-color="#f0cb78"/><stop offset="100%" stop-color="#b88937"/>
+        </linearGradient>
+      `;
+    } else if (sel1 === "Matcha Silk") {
+      spongeGrad = `
+        <linearGradient id="dynSponge" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#9ecc5c"/><stop offset="50%" stop-color="#6e9c32"/><stop offset="100%" stop-color="#3f6613"/>
+        </linearGradient>
+      `;
+    }
+
+    // 2. Velvet Frostings
+    let frostingGrad = `
+      <linearGradient id="dynFrosting" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffffff"/><stop offset="40%" stop-color="#fff8ed"/><stop offset="85%" stop-color="#edd9b6"/><stop offset="100%" stop-color="#d6bd94"/>
+      </linearGradient>
+    `;
+    let dripColor = "#edd9b6";
+    let sprinkles = `<circle cx="75" cy="75" r="2.5" fill="#f7b731"/><circle cx="105" cy="65" r="2" fill="#eb3b5a"/><circle cx="135" cy="72" r="2.5" fill="#20bf6b"/><circle cx="150" cy="80" r="2" fill="#f7b731"/>`;
+
+    if (sel2 === "Salted Caramel") {
+      frostingGrad = `
+        <linearGradient id="dynFrosting" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd580"/><stop offset="40%" stop-color="#f5a331"/><stop offset="85%" stop-color="#c46808"/><stop offset="100%" stop-color="#803d00"/>
+        </linearGradient>
+      `;
+      dripColor = "#b85f06";
+      sprinkles = `<circle cx="75" cy="75" r="2.5" fill="#fff" opacity="0.8"/><circle cx="105" cy="65" r="2.5" fill="#fff" opacity="0.8"/><circle cx="135" cy="72" r="2.5" fill="#fff" opacity="0.8"/>`;
+    } else if (sel2 === "Earl Grey Ganache") {
+      frostingGrad = `
+        <linearGradient id="dynFrosting" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d8c5e6"/><stop offset="40%" stop-color="#9a81b3"/><stop offset="85%" stop-color="#644a80"/><stop offset="100%" stop-color="#3d2854"/>
+        </linearGradient>
+      `;
+      dripColor = "#593e73";
+      sprinkles = `<circle cx="75" cy="75" r="2.5" fill="#ffd700"/><circle cx="105" cy="65" r="2.5" fill="#ffd700"/><circle cx="135" cy="72" r="2.5" fill="#ffd700"/>`;
+    }
+
+    return `
+    <svg viewBox="0 0 220 220">
+      <defs>
+        ${spongeGrad}
+        ${frostingGrad}
+        <radialGradient id="cakePlate" cx="50%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fcf6e8"/><stop offset="70%" stop-color="#dfcfb0"/><stop offset="100%" stop-color="#8a7958"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Pedestal Stand -->
+      <ellipse cx="110" cy="195" rx="80" ry="11" fill="#000" opacity="0.35"/>
+      <ellipse cx="110" cy="184" rx="70" ry="12" fill="url(#cakePlate)"/>
+      <path d="M75 183 Q110 168 145 183 L135 200 Q110 210 85 200Z" fill="#c4b290"/>
+
+      <!-- Bottom Sponge Tier -->
+      <rect x="42" y="122" width="136" height="60" rx="12" fill="url(#dynSponge)"/>
+      <path d="M42 122 Q110 104 178 122 Q165 136 178 148 Q110 164 42 148 Q55 136 42 122Z" fill="url(#dynFrosting)"/>
+
+      <!-- Top Sponge Tier -->
+      <rect x="56" y="82" width="108" height="46" rx="10" fill="url(#dynSponge)"/>
+      <path d="M52 84 Q110 56 168 84 Q155 100 168 112 Q110 128 52 112 Q65 100 52 84Z" fill="url(#dynFrosting)"/>
+
+      <!-- Glossy Drips -->
+      <path d="M72 94 Q76 114 72 120 M110 84 Q114 107 110 122 M148 94 Q152 112 148 119" stroke="${dripColor}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      ${sprinkles}
+    </svg>
+    `;
+  }
+
+  if (currentDish === "noodles") {
+    // 1. Broth Bases
+    let brothGrad = `
+      <radialGradient id="dynBroth" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#ffe28a"/><stop offset="50%" stop-color="#e5a83b"/><stop offset="85%" stop-color="#aa6616"/><stop offset="100%" stop-color="#593005"/>
+      </radialGradient>
+    `;
+    if (sel1 === "Smoky Shoyu") {
+      brothGrad = `
+        <radialGradient id="dynBroth" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#f08b4f"/><stop offset="50%" stop-color="#b84614"/><stop offset="85%" stop-color="#6e1f04"/><stop offset="100%" stop-color="#380a00"/>
+        </radialGradient>
+      `;
+    } else if (sel1 === "Coconut Curry") {
+      brothGrad = `
+        <radialGradient id="dynBroth" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#ffea75"/><stop offset="50%" stop-color="#ffb81c"/><stop offset="85%" stop-color="#cc7700"/><stop offset="100%" stop-color="#804400"/>
+        </radialGradient>
+      `;
+    }
+
+    // 2. Noodle Styles
+    let noodleStroke = "#fff9eb";
+    let noodlePaths = `
+      <g fill="none" stroke="${noodleStroke}" stroke-width="5" stroke-linecap="round">
+        <path d="M42 102 Q64 72 86 102 T132 102 T174 102"/>
+        <path d="M44 128 Q66 98 90 128 T136 128 T174 120"/>
+        <path d="M60 80 Q80 54 100 80 T142 80"/>
+        <path d="M72 144 Q92 116 114 144 T156 138"/>
+      </g>
+    `;
+
+    if (sel2 === "Silky Udon") {
+      noodleStroke = "#ffffff";
+      noodlePaths = `
+        <g fill="none" stroke="${noodleStroke}" stroke-width="8" stroke-linecap="round">
+          <path d="M42 98 Q70 65 98 98 T158 98"/>
+          <path d="M48 126 Q80 95 110 126 T170 120"/>
+          <path d="M68 80 Q95 56 125 80"/>
+          <path d="M74 146 Q106 122 138 146"/>
+        </g>
+      `;
+    } else if (sel2 === "Egg Ribbons") {
+      noodleStroke = "#ffd94a";
+      noodlePaths = `
+        <g fill="none" stroke="${noodleStroke}" stroke-width="6.5" stroke-linecap="round">
+          <path d="M38 100 C60 70, 75 120, 100 95 C125 70, 145 120, 175 100"/>
+          <path d="M45 125 C70 95, 85 140, 110 115 C135 90, 150 140, 174 122"/>
+          <path d="M55 78 C80 55, 95 95, 125 75 C145 60, 155 85, 168 80"/>
+        </g>
+      `;
+    }
+
+    return `
+    <svg viewBox="0 0 220 220">
+      <defs>
+        ${brothGrad}
+        <radialGradient id="ramenBowl" cx="40%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#fffcf5"/><stop offset="60%" stop-color="#e8dac1"/><stop offset="100%" stop-color="#8f7d5e"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Bowl -->
+      <ellipse cx="110" cy="195" rx="80" ry="10" fill="#000" opacity="0.35"/>
+      <ellipse cx="110" cy="120" rx="104" ry="86" fill="url(#ramenBowl)"/>
+
+      <!-- Broth -->
+      <ellipse cx="110" cy="102" rx="84" ry="68" fill="url(#dynBroth)"/>
+      <ellipse cx="82" cy="72" rx="36" ry="14" fill="white" opacity="0.25"/>
+
+      <!-- Noodles -->
+      ${noodlePaths}
+    </svg>
+    `;
+  }
+
+  return "";
+}
 
 
 /* ============================================================
-   TOPPING ICONS
+   DELIGHTFUL TOPPING ICONS & MARKUP
    ============================================================ */
 
 function icon(svg) {
-
   return `
     <svg viewBox="0 0 60 60">
       ${svg}
@@ -1383,709 +773,319 @@ function icon(svg) {
   `;
 }
 
-
 const TOPPINGS = {
-
   pizza: [
-
     {
       id: "pepperoni",
-      label: "Pepperoni",
+      label: "Spiced Pepperoni",
       max: 12,
-      price: 0.75,
-
       icon: icon(`
-        <circle
-          cx="30"
-          cy="30"
-          r="22"
-          fill="#e2472f"/>
-
-        <circle
-          cx="23"
-          cy="23"
-          r="3"
-          fill="#8f2515"/>
-
-        <circle
-          cx="37"
-          cy="35"
-          r="3"
-          fill="#8f2515"/>
+        <circle cx="30" cy="30" r="23" fill="#c4331e" stroke="#781708" stroke-width="1.5"/>
+        <circle cx="23" cy="23" r="3.5" fill="#7a1608"/>
+        <circle cx="37" cy="35" r="3" fill="#7a1608"/>
+        <circle cx="26" cy="37" r="2.5" fill="#7a1608"/>
+        <ellipse cx="28" cy="24" rx="4" ry="2" fill="#fff" opacity="0.3" transform="rotate(-20 28 24)"/>
       `)
     },
-
     {
       id: "basil",
-      label: "Basil Leaves",
+      label: "Fresh Sweet Basil",
       max: 12,
-      price: 0.5,
-
       icon: icon(`
-        <path
-          d="
-            M30 6
-            C48 15 49 35 30 54
-            C11 35 12 15 30 6Z
-          "
-          fill="#5cb84a"/>
-
-        <path
-          d="M30 10L30 50"
-          stroke="#2c7a30"
-          stroke-width="2"/>
+        <path d="M30 5 C50 15 51 38 30 56 C9 38 10 15 30 5Z" fill="#388e3c"/>
+        <path d="M30 9 L30 52" stroke="#1b5e20" stroke-width="2.5"/>
+        <path d="M30 22 Q40 18 44 26 M30 34 Q20 30 16 38" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
       `)
     },
-
     {
       id: "mushroom",
-      label: "Charred Mushrooms",
+      label: "Charred Truffle Cap",
       max: 10,
-      price: 0.6,
-
       icon: icon(`
-        <path
-          d="
-            M10 30
-            C10 13 50 13 50 30
-            C50 35 40 35 30 35
-            C20 35 10 35 10 30Z
-          "
-          fill="#a17b52"/>
-
-        <rect
-          x="25"
-          y="32"
-          width="10"
-          height="16"
-          rx="4"
-          fill="#f0e2c4"/>
+        <path d="M10 32 C10 14 50 14 50 32 C50 38 40 38 30 38 C20 38 10 38 10 32Z" fill="#825c38"/>
+        <rect x="24" y="35" width="12" height="18" rx="4" fill="#eddcc4"/>
+        <ellipse cx="26" cy="22" rx="6" ry="3" fill="#fff" opacity="0.25"/>
       `)
     },
-
     {
       id: "olive",
       label: "Kalamata Olives",
       max: 14,
-      price: 0.5,
-
       icon: icon(`
-        <ellipse
-          cx="30"
-          cy="30"
-          rx="14"
-          ry="17"
-          fill="#3a1f38"/>
-
-        <ellipse
-          cx="30"
-          cy="30"
-          rx="5"
-          ry="6"
-          fill="#120a12"/>
+        <ellipse cx="30" cy="30" rx="16" ry="19" fill="#291a27"/>
+        <ellipse cx="30" cy="30" rx="6" ry="7" fill="#080407"/>
+        <ellipse cx="26" cy="23" rx="4" ry="2" fill="#fff" opacity="0.3" transform="rotate(-30 26 23)"/>
       `)
     },
-
     {
       id: "mozzarella",
       label: "Mozzarella Pearls",
       max: 12,
-      price: 0.65,
-
       icon: icon(`
-        <circle
-          cx="23"
-          cy="27"
-          r="11"
-          fill="#fffdf0"/>
-
-        <circle
-          cx="38"
-          cy="35"
-          r="9"
-          fill="#fff2d2"/>
+        <circle cx="23" cy="26" r="13" fill="#ffffff" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.2))"/>
+        <circle cx="38" cy="36" r="11" fill="#fffde8"/>
+        <circle cx="20" cy="23" r="3" fill="#fff" opacity="0.7"/>
       `)
     }
-
   ],
-
 
   cake: [
-
     {
       id: "berries",
-      label: "Wild Berries",
+      label: "Wild Glazed Berries",
       max: 14,
-      price: 0.8,
-
       icon: icon(`
-        <circle
-          cx="30"
-          cy="30"
-          r="16"
-          fill="#ff3f6f"/>
-
-        <circle
-          cx="23"
-          cy="23"
-          r="2"
-          fill="#6a1030"/>
-
-        <circle
-          cx="36"
-          cy="25"
-          r="2"
-          fill="#6a1030"/>
-
-        <circle
-          cx="31"
-          cy="36"
-          r="2"
-          fill="#6a1030"/>
+        <circle cx="30" cy="30" r="18" fill="#ba1841"/>
+        <circle cx="23" cy="23" r="2.5" fill="#4a0515"/>
+        <circle cx="37" cy="25" r="2.5" fill="#4a0515"/>
+        <circle cx="31" cy="38" r="2.5" fill="#4a0515"/>
+        <ellipse cx="26" cy="22" rx="4" ry="2.5" fill="#fff" opacity="0.55"/>
       `)
     },
-
     {
       id: "gold",
-      label: "Gold Leaf",
+      label: "24k Edible Gold Leaf",
       max: 8,
-      price: 1.5,
-
       icon: icon(`
-        <path
-          d="
-            M10 36
-            L27 10
-            L51 22
-            L36 51
-            Z
-          "
-          fill="#ffcf6b"/>
-
-        <path
-          d="M15 34L30 16"
-          stroke="#fff4b5"
-          stroke-width="2"/>
+        <path d="M10 36 L27 10 L52 22 L36 52 Z" fill="#ffd700"/>
+        <path d="M15 34 L30 16" stroke="#ffffff" stroke-width="2.5"/>
+        <circle cx="28" cy="28" r="3" fill="#fff" opacity="0.8"/>
       `)
     },
-
     {
       id: "cocoa",
-      label: "Shaved Cocoa",
+      label: "Belgian Cocoa Curls",
       max: 12,
-      price: 0.55,
-
       icon: icon(`
-        <path
-          d="
-            M10 45
-            C10 25 22 10 35 12
-            C31 24 33 40 48 44
-            C35 51 17 51 10 45Z
-          "
-          fill="#5c3420"/>
+        <path d="M10 46 C10 24 22 8 36 10 C32 22 34 40 50 45 C36 53 17 53 10 46Z" fill="#422110"/>
+        <path d="M16 38 C22 26 30 20 34 16" stroke="#63371f" stroke-width="2" fill="none"/>
       `)
     },
-
     {
       id: "pistachio",
-      label: "Pistachio Crumble",
+      label: "Pistachio Praline",
       max: 12,
-      price: 0.7,
-
       icon: icon(`
-        <circle cx="20" cy="25" r="5" fill="#9fce5e"/>
-        <circle cx="34" cy="20" r="4" fill="#c6ff4d"/>
-        <circle cx="30" cy="37" r="5" fill="#7fae44"/>
-        <circle cx="43" cy="34" r="4" fill="#b4e35c"/>
+        <circle cx="20" cy="25" r="6" fill="#7cb342"/>
+        <circle cx="36" cy="20" r="5" fill="#9ccc65"/>
+        <circle cx="30" cy="39" r="6" fill="#558b2f"/>
+        <circle cx="44" cy="35" r="5" fill="#8bc34a"/>
       `)
     }
-
   ],
 
-
   noodles: [
-
     {
       id: "chashu",
-      label: "Chashu Pork",
+      label: "Seared Chashu Pork",
       max: 8,
-      price: 0.9,
-
       icon: icon(`
-        <ellipse
-          cx="30"
-          cy="30"
-          rx="20"
-          ry="14"
-          fill="#d1854f"/>
-
-        <path
-          d="
-            M13 27
-            Q30 18 47 27
-            M13 35
-            Q30 43 47 35
-          "
-          fill="none"
-          stroke="#79401f"
-          stroke-width="2"/>
+        <ellipse cx="30" cy="30" rx="22" ry="16" fill="#c46a39"/>
+        <path d="M12 26 Q30 16 48 26 M12 34 Q30 44 48 34" fill="none" stroke="#5c260a" stroke-width="2.5"/>
+        <ellipse cx="26" cy="24" rx="5" ry="2" fill="#fff" opacity="0.3"/>
       `)
     },
-
     {
       id: "egg",
-      label: "Ramen Egg",
+      label: "Ramen Ajitsuke Egg",
       max: 6,
-      price: 0.6,
-
       icon: icon(`
-        <path
-          d="
-            M10 31
-            A20 20 0 0 1 50 31
-            Z
-          "
-          fill="#fffaf0"/>
-
-        <path
-          d="
-            M20 31
-            A10 10 0 0 1 40 31
-            Z
-          "
-          fill="#ff9d2e"/>
+        <path d="M8 32 A22 22 0 0 1 52 32 Z" fill="#ffffff" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.2))"/>
+        <path d="M18 32 A12 12 0 0 1 42 32 Z" fill="#ff9100"/>
+        <circle cx="27" cy="26" r="3" fill="#fff" opacity="0.6"/>
       `)
     },
-
     {
       id: "nori",
-      label: "Nori Sheet",
+      label: "Crisp Nori Sheet",
       max: 8,
-      price: 0.4,
-
       icon: icon(`
-        <rect
-          x="14"
-          y="14"
-          width="32"
-          height="32"
-          rx="3"
-          fill="#1c3320"/>
-
-        <path
-          d="
-            M14 21H46
-          "
-          stroke="#4a6b48"
-          stroke-width="4"/>
+        <rect x="12" y="12" width="36" height="36" rx="4" fill="#142618"/>
+        <path d="M12 20 H48 M12 32 H48" stroke="#2b4731" stroke-width="3"/>
       `)
     },
-
     {
       id: "scallion",
       label: "Charred Scallions",
       max: 12,
-      price: 0.35,
-
       icon: icon(`
-        <circle
-          cx="18"
-          cy="23"
-          r="6"
-          fill="none"
-          stroke="#8fd85a"
-          stroke-width="3"/>
-
-        <circle
-          cx="35"
-          cy="31"
-          r="6"
-          fill="none"
-          stroke="#b0f070"
-          stroke-width="3"/>
-
-        <circle
-          cx="25"
-          cy="42"
-          r="5"
-          fill="none"
-          stroke="#6ab048"
-          stroke-width="3"/>
+        <circle cx="18" cy="22" r="7" fill="none" stroke="#689f38" stroke-width="3.5"/>
+        <circle cx="36" cy="30" r="7" fill="none" stroke="#8bc34a" stroke-width="3.5"/>
+        <circle cx="26" cy="44" r="6" fill="none" stroke="#4b7724" stroke-width="3.5"/>
       `)
     }
-
   ]
-
 };
 
 
 /* ============================================================
-   DISH DATA — options now carry a realistic price
+   DISH DATA
    ============================================================ */
 
 const DISH_DATA = {
-
   pizza: {
-    label: "Handcrafted Pizza",
-    basePrice: 9.5,
-
+    label: "Handcrafted Hearth Pizza",
     bases: [
       {
         key: "crust",
-        label: "Crust",
-        options: [
-          { name: "Classic Sourdough", price: 0 },
-          { name: "Neapolitan Thin", price: 0.5 },
-          { name: "Cheesy Stuffed", price: 1.75 }
-        ]
+        label: "Crust Style",
+        options: ["Classic Sourdough", "Neapolitan Thin", "Cheesy Stuffed"]
       },
-
       {
         key: "sauce",
-        label: "Sauce",
-        options: [
-          { name: "San Marzano Tomato", price: 0 },
-          { name: "White Truffle Cream", price: 2 },
-          { name: "Basil Pesto", price: 1.25 }
-        ]
+        label: "Sauce Infusion",
+        options: ["San Marzano Tomato", "White Truffle Cream", "Basil Pesto"]
       }
     ],
-
     toppings: TOPPINGS.pizza
   },
 
-
   cake: {
-    label: "Celebration Cake",
-    basePrice: 14,
-
+    label: "Celebration Gateau Cake",
     bases: [
       {
         key: "sponge",
-        label: "Sponge",
-        options: [
-          { name: "Dark Chocolate", price: 0 },
-          { name: "Madagascar Vanilla", price: 0.5 },
-          { name: "Matcha", price: 1.25 }
-        ]
+        label: "Sponge Cake",
+        options: ["Dark Chocolate", "Madagascar Vanilla", "Matcha Silk"]
       },
-
       {
         key: "frosting",
-        label: "Frosting",
-        options: [
-          { name: "Swiss Buttercream", price: 0 },
-          { name: "Salted Caramel", price: 1 },
-          { name: "Earl Grey Ganache", price: 1.5 }
-        ]
+        label: "Velvet Frosting",
+        options: ["Swiss Buttercream", "Salted Caramel", "Earl Grey Ganache"]
       }
     ],
-
     toppings: TOPPINGS.cake
   },
 
-
   noodles: {
-    label: "Comfort Noodles",
-    basePrice: 11,
-
+    label: "Artisanal Comfort Noodles",
     bases: [
       {
         key: "broth",
-        label: "Broth",
-        options: [
-          { name: "Rich Tonkotsu", price: 0 },
-          { name: "Smoky Shoyu", price: 0 },
-          { name: "Coconut Curry", price: 1 }
-        ]
+        label: "Broth Base",
+        options: ["Rich Tonkotsu", "Smoky Shoyu", "Coconut Curry"]
       },
-
       {
         key: "noodle",
         label: "Noodle Style",
-        options: [
-          { name: "Hand-Pulled Ramen", price: 0 },
-          { name: "Silky Udon", price: 0.5 },
-          { name: "Egg Noodles", price: 0.5 }
-        ]
+        options: ["Hand-Pulled Ramen", "Silky Udon", "Egg Ribbons"]
       }
     ],
-
     toppings: TOPPINGS.noodles
   }
-
 };
 
 
 /* ============================================================
-   DISH SELECTION
+   DISH SELECTION & FLOW
    ============================================================ */
 
-dbStep1
-  .querySelectorAll(".dish-card")
-  .forEach(card => {
-
-    card.addEventListener(
-      "click",
-      () => {
-
-        selectDish(
-          card.dataset.dish,
-          card
-        );
-
-      }
-    );
-
+dbStep1.querySelectorAll(".dish-card").forEach(card => {
+  card.addEventListener("click", () => {
+    selectDish(card.dataset.dish, card);
   });
-
+});
 
 function selectDish(type, card) {
-
   currentDish = type;
-
-  baseSelections = {};
-
+  baseSelections = {
+    [DISH_DATA[type].bases[0].key]: DISH_DATA[type].bases[0].options[0],
+    [DISH_DATA[type].bases[1].key]: DISH_DATA[type].bases[1].options[0]
+  };
   toppingCounts = {};
-
   toppingIndex = 0;
-
   served = false;
 
+  dbStep1.querySelectorAll(".dish-card").forEach(c => {
+    c.classList.toggle("selected", c === card);
+  });
 
-  /* Highlight card */
-
-  dbStep1
-    .querySelectorAll(".dish-card")
-    .forEach(c => {
-
-      c.classList.toggle(
-        "selected",
-        c === card
-      );
-
-    });
-
-
-  /* ========================================================
-     CRITICAL FIX #1
-     IMMEDIATELY INJECT BASE DISH SVG
-     ======================================================== */
-
-  dishArt.innerHTML =
-    DISH_ART[type]();
-
-
-  /* ========================================================
-     CRITICAL FIX #2
-     NEVER HIDE THE PLATE
-     ======================================================== */
-
+  dishArt.innerHTML = renderDynamicDishArt();
   dbPlate.style.opacity = "1";
-
-  dbPlate.style.visibility =
-    "visible";
-
-
-  dbPlate.classList.remove(
-    "magic-complete"
-  );
-
-  dishArt.classList.remove(
-    "magic-complete"
-  );
-
-
-  /* Clear toppings */
+  dbPlate.style.visibility = "visible";
+  dbPlate.classList.remove("magic-complete");
+  dishArt.classList.remove("magic-complete");
 
   toppingsLayer.innerHTML = "";
-
   sparklesLayer.innerHTML = "";
-
-
-  /* Steam visible around food */
-
-  steamLayer.style.opacity =
-    "0.75";
-
-
-  /* Panel */
+  steamLayer.style.opacity = "0.8";
 
   renderPanel();
-
-
   dbPanel.hidden = false;
-
   dbCastBtn.hidden = false;
-
   dbResult.hidden = true;
-
 
   updateCastButton();
 
-
-  /* Scroll stage into view */
-
   setTimeout(() => {
-
-    document
-      .getElementById("stageShell")
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
+    document.getElementById("stageShell").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
   }, 50);
-
 }
 
 
 /* ============================================================
-   PANEL
+   PANEL BUILDER
    ============================================================ */
 
-function formatPrice(value) {
-
-  return "$" + value.toFixed(2);
-
-}
-
-
 function renderPanel() {
+  const data = DISH_DATA[currentDish];
 
-  const data =
-    DISH_DATA[currentDish];
+  baseLabel1.textContent = data.bases[0].label;
+  baseLabel2.textContent = data.bases[1].label;
 
-
-  baseLabel1.textContent =
-    data.bases[0].label;
-
-  baseLabel2.textContent =
-    data.bases[1].label;
-
-
-  buildBaseOptions(
-    baseChips1,
-    data.bases[0]
-  );
-
-  buildBaseOptions(
-    baseChips2,
-    data.bases[1]
-  );
-
-  buildToppingButtons(
-    data.toppings
-  );
+  buildBaseOptions(baseChips1, data.bases[0]);
+  buildBaseOptions(baseChips2, data.bases[1]);
+  buildToppingButtons(data.toppings);
 }
 
-
-function buildBaseOptions(
-  container,
-  group
-) {
-
+function buildBaseOptions(container, group) {
   container.innerHTML = "";
 
-  group.options.forEach(option => {
-
-    const button =
-      document.createElement("button");
-
+  group.options.forEach((option, idx) => {
+    const button = document.createElement("button");
     button.type = "button";
+    button.className = "db-chip";
+    button.textContent = option;
 
-    button.className =
-      "db-chip";
+    if (baseSelections[group.key] === option) {
+      button.classList.add("selected");
+    }
 
-    button.innerHTML = `
-      ${option.name}
-      ${
-        option.price > 0
-          ? `<span class="chip-price">+${formatPrice(option.price)}</span>`
-          : ""
-      }
-    `;
+    button.addEventListener("click", () => {
+      container.querySelectorAll(".db-chip").forEach(b => b.classList.remove("selected"));
+      button.classList.add("selected");
+      baseSelections[group.key] = option;
+      
+      // Instantly trigger re-render of illustration with new ingredients
+      dishArt.innerHTML = renderDynamicDishArt();
+      updateCastButton();
+    });
 
-    button.addEventListener(
-      "click",
-      () => {
-
-        container
-          .querySelectorAll(".db-chip")
-          .forEach(
-            b => b.classList.remove(
-              "selected"
-            )
-          );
-
-        button.classList.add(
-          "selected"
-        );
-
-        baseSelections[group.key] =
-          option;
-
-        updateCastButton();
-
-      }
-    );
-
-    container.appendChild(
-      button
-    );
-
+    container.appendChild(button);
   });
 }
 
-
 function buildToppingButtons(toppings) {
-
   toppingGrid.innerHTML = "";
 
   toppings.forEach(topping => {
-
-    const button =
-      document.createElement("button");
-
+    const button = document.createElement("button");
     button.type = "button";
-
-    button.className =
-      "topping-btn";
-
+    button.className = "topping-btn";
     button.innerHTML = `
-
-      <span class="t-icon">
-        ${topping.icon}
-      </span>
-
-      <span>
-        ${topping.label}
-        <span class="t-price">${formatPrice(topping.price)}</span>
-      </span>
-
-      <span
-        class="t-count"
-        data-count="${topping.id}">
-        0
-      </span>
-
+      <span class="t-icon">${topping.icon}</span>
+      <span>${topping.label}</span>
+      <span class="t-count" data-count="${topping.id}">0</span>
     `;
 
-    button.addEventListener(
-      "click",
-      () => {
-        addTopping(
-          topping,
-          button
-        );
-      }
-    );
+    button.addEventListener("click", () => {
+      addTopping(topping, button);
+    });
 
-    toppingGrid.appendChild(
-      button
-    );
-
+    toppingGrid.appendChild(button);
   });
 }
 
@@ -2095,30 +1095,14 @@ function buildToppingButtons(toppings) {
    ============================================================ */
 
 function updateCastButton() {
-
   if (!currentDish) {
-
-    dbCastBtn.disabled =
-      true;
-
+    dbCastBtn.disabled = true;
     return;
   }
 
-  const data =
-    DISH_DATA[currentDish];
-
-  const ready =
-    data.bases.every(
-      base =>
-        Boolean(
-          baseSelections[
-            base.key
-          ]
-        )
-    );
-
-  dbCastBtn.disabled =
-    !ready;
+  const data = DISH_DATA[currentDish];
+  const ready = data.bases.every(base => Boolean(baseSelections[base.key]));
+  dbCastBtn.disabled = !ready;
 }
 
 
@@ -2127,85 +1111,22 @@ function updateCastButton() {
    ============================================================ */
 
 const TOPPING_RADIUS = {
-
-  pizza: {
-    min: 65,
-    max: 125
-  },
-
-  cake: {
-    min: 45,
-    max: 95
-  },
-
-  noodles: {
-    min: 60,
-    max: 110
-  }
-
+  pizza: { min: 70, max: 135 },
+  cake: { min: 50, max: 105 },
+  noodles: { min: 65, max: 120 }
 };
 
-
-/*
-  This creates a deterministic spiral around
-  the center, with a touch of organic jitter
-  so scattered toppings never look perfectly
-  mechanical.
-
-  Every topping remains inside the plate.
-*/
-
 function getToppingPosition(index) {
-
-  const bounds =
-    TOPPING_RADIUS[currentDish];
-
-  const goldenAngle =
-    137.50776;
-
-  const angle =
-    index *
-    goldenAngle *
-    Math.PI / 180;
-
-  const radius =
-    bounds.min +
-    (
-      (index % 9) / 8
-    ) *
-    (
-      bounds.max -
-      bounds.min
-    );
-
-  /* small deterministic jitter, seeded by index,
-     keeps the scatter looking hand-placed */
-  const jitterX =
-    Math.sin(index * 12.9898) * 6;
-
-  const jitterY =
-    Math.cos(index * 78.233) * 6;
-
+  const bounds = TOPPING_RADIUS[currentDish];
+  const goldenAngle = 137.50776;
+  const angle = index * goldenAngle * Math.PI / 180;
+  const radius = bounds.min + ((index % 9) / 8) * (bounds.max - bounds.min);
 
   return {
-
-    x:
-      Math.cos(angle) *
-      radius +
-      jitterX,
-
-    y:
-      Math.sin(angle) *
-      radius +
-      jitterY,
-
-    rotation:
-      (
-        index * 47
-      ) % 40 - 20
-
+    x: Math.cos(angle) * radius,
+    y: Math.sin(angle) * radius,
+    rotation: (index * 47) % 40 - 20
   };
-
 }
 
 
@@ -2213,132 +1134,40 @@ function getToppingPosition(index) {
    ADD TOPPING
    ============================================================ */
 
-function addTopping(
-  topping,
-  button
-) {
+function addTopping(topping, button) {
+  if (served) return;
 
-  if (served)
-    return;
-
-
-  const current =
-    toppingCounts[
-      topping.id
-    ] || 0;
-
-
+  const current = toppingCounts[topping.id] || 0;
   if (current >= topping.max) {
-
-    button.classList.add(
-      "maxed"
-    );
-
+    button.classList.add("maxed");
     return;
   }
 
+  toppingCounts[topping.id] = current + 1;
+  const countElement = button.querySelector(".t-count");
+  countElement.textContent = toppingCounts[topping.id];
 
-  toppingCounts[
-    topping.id
-  ] =
-    current + 1;
-
-
-  const countElement =
-    button.querySelector(
-      ".t-count"
-    );
-
-  countElement.textContent =
-    toppingCounts[
-      topping.id
-    ];
-
-
-  if (
-    toppingCounts[topping.id] >=
-    topping.max
-  ) {
-
-    button.classList.add(
-      "maxed"
-    );
+  if (toppingCounts[topping.id] >= topping.max) {
+    button.classList.add("maxed");
   }
 
+  const position = getToppingPosition(toppingIndex);
+  spawnTopping(topping.icon, position);
 
-  const position =
-    getToppingPosition(
-      toppingIndex
-    );
-
-
-  spawnTopping(
-    topping.icon,
-    position
-  );
-
-
-  animateHand(
-    position.x < 0
-      ? "left"
-      : "right"
-  );
-
-
-  /* a little physical "clink" so the plate
-     feels like it's actually being loaded */
-
-  dbPlate.classList.remove("bump");
-
-  void dbPlate.offsetWidth;
-
-  dbPlate.classList.add("bump");
-
-
+  animateHand(position.x < 0 ? "left" : "right");
   toppingIndex++;
 }
 
+function spawnTopping(markup, position) {
+  const element = document.createElement("div");
+  element.className = "topping-item";
+  element.innerHTML = markup;
 
-/* ============================================================
-   SPAWN TOPPING
-   ============================================================ */
+  element.style.setProperty("--offset-x", position.x + "px");
+  element.style.setProperty("--offset-y", position.y + "px");
+  element.style.setProperty("--rotation", position.rotation + "deg");
 
-function spawnTopping(
-  markup,
-  position
-) {
-
-  const element =
-    document.createElement("div");
-
-  element.className =
-    "topping-item";
-
-
-  element.innerHTML =
-    markup;
-
-
-  element.style.setProperty(
-    "--offset-x",
-    position.x + "px"
-  );
-
-  element.style.setProperty(
-    "--offset-y",
-    position.y + "px"
-  );
-
-  element.style.setProperty(
-    "--rotation",
-    position.rotation + "deg"
-  );
-
-
-  toppingsLayer.appendChild(
-    element
-  );
-
+  toppingsLayer.appendChild(element);
 }
 
 
@@ -2347,40 +1176,16 @@ function spawnTopping(
    ============================================================ */
 
 function animateHand(side) {
+  const rig = side === "left" ? handRigL : handRigR;
+  const anchor = side === "left" ? handLeft : handRight;
 
-  const rig =
-    side === "left"
-      ? handRigL
-      : handRigR;
-
-
-  const anchor =
-    side === "left"
-      ? handLeft
-      : handRight;
-
-
-  rig.classList.add(
-    "magic"
-  );
-
-  anchor.style.transform =
-    side === "left"
-      ? "translateX(20px)"
-      : "translateX(-20px)";
-
+  rig.classList.add("magic");
+  anchor.style.transform = side === "left" ? "translateX(24px)" : "translateX(-24px)";
 
   setTimeout(() => {
-
-    rig.classList.remove(
-      "magic"
-    );
-
-    anchor.style.transform =
-      "";
-
+    rig.classList.remove("magic");
+    anchor.style.transform = "";
   }, 500);
-
 }
 
 
@@ -2388,122 +1193,43 @@ function animateHand(side) {
    MAGIC REVEAL
    ============================================================ */
 
-dbCastBtn.addEventListener(
-  "click",
-  castMagic
-);
-
+dbCastBtn.addEventListener("click", castMagic);
 
 function castMagic() {
-
-  if (
-    dbCastBtn.disabled ||
-    served
-  )
-    return;
-
+  if (dbCastBtn.disabled || served) return;
 
   served = true;
+  dbCastBtn.disabled = true;
 
-  dbCastBtn.disabled =
-    true;
+  dbPlate.style.opacity = "1";
+  dbPlate.style.visibility = "visible";
+  dishArt.style.opacity = "1";
+  dishArt.style.visibility = "visible";
 
+  handRigL.classList.add("magic");
+  handRigR.classList.add("magic");
+  handLeft.style.transform = "translateX(35px)";
+  handRight.style.transform = "translateX(-35px)";
 
-  /*
-    CRITICAL:
-    plate and dish NEVER become
-    opacity 0 / display none.
-  */
+  steamLayer.style.opacity = "1";
 
-  dbPlate.style.opacity =
-    "1";
-
-  dbPlate.style.visibility =
-    "visible";
-
-  dishArt.style.opacity =
-    "1";
-
-  dishArt.style.visibility =
-    "visible";
-
-
-  /* Hands come in */
-
-  handRigL.classList.add(
-    "magic"
-  );
-
-  handRigR.classList.add(
-    "magic"
-  );
-
-
-  handLeft.style.transform =
-    "translateX(35px)";
-
-  handRight.style.transform =
-    "translateX(-35px)";
-
-
-  /* Steam */
-
-  steamLayer.style.opacity =
-    "1";
-
-
-  /* Sparkles */
-
-  setTimeout(
-    createMagicSparkles,
-    250
-  );
-
-
-  /* Golden finish */
+  setTimeout(createMagicSparkles, 250);
 
   setTimeout(() => {
-
-    dbPlate.classList.add(
-      "magic-complete"
-    );
-
-    dishArt.classList.add(
-      "magic-complete"
-    );
-
+    dbPlate.classList.add("magic-complete");
+    dishArt.classList.add("magic-complete");
   }, 650);
 
-
-  /* Hands leave */
-
   setTimeout(() => {
-
-    handRigL.classList.remove(
-      "magic"
-    );
-
-    handRigR.classList.remove(
-      "magic"
-    );
-
-    handLeft.style.transform =
-      "";
-
-    handRight.style.transform =
-      "";
-
+    handRigL.classList.remove("magic");
+    handRigR.classList.remove("magic");
+    handLeft.style.transform = "";
+    handRight.style.transform = "";
   }, 1200);
 
-
-  /* Receipt */
-
   setTimeout(() => {
-
     showReceipt();
-
   }, 1800);
-
 }
 
 
@@ -2512,75 +1238,25 @@ function castMagic() {
    ============================================================ */
 
 function createMagicSparkles() {
-
-  for (
-    let i = 0;
-    i < 26;
-    i++
-  ) {
-
-    const sparkle =
-      document.createElement(
-        "span"
-      );
-
-    sparkle.className =
-      "sparkle";
-
-
-    sparkle.style.left =
-      random(30,70) + "%";
-
-    sparkle.style.top =
-      random(25,75) + "%";
-
-
-    sparkle.style.animationDelay =
-      random(0,.6) + "s";
-
-    sparkle.style.color =
-      SPARKLE_COLORS[
-        Math.floor(
-          random(0, SPARKLE_COLORS.length)
-        )
-      ];
-
+  for (let i = 0; i < 26; i++) {
+    const sparkle = document.createElement("span");
+    sparkle.className = "sparkle";
+    sparkle.style.left = random(25, 75) + "%";
+    sparkle.style.top = random(20, 80) + "%";
+    sparkle.style.animationDelay = random(0, 0.7) + "s";
 
     sparkle.innerHTML = `
-
       <svg viewBox="0 0 20 20">
-
-        <path
-          d="
-            M10 0
-            L12.5 7.5
-            L20 10
-            L12.5 12.5
-            L10 20
-            L7.5 12.5
-            L0 10
-            L7.5 7.5
-            Z
-          "/>
-
+        <path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5 Z"/>
       </svg>
-
     `;
 
-
-    sparklesLayer.appendChild(
-      sparkle
-    );
-
+    sparklesLayer.appendChild(sparkle);
 
     setTimeout(() => {
-
       sparkle.remove();
-
     }, 1800);
-
   }
-
 }
 
 
@@ -2589,151 +1265,53 @@ function createMagicSparkles() {
    ============================================================ */
 
 function showReceipt() {
-
-  const data =
-    DISH_DATA[currentDish];
-
-
+  const data = DISH_DATA[currentDish];
   const lines = [];
 
-  let total = data.basePrice;
-
-
-  lines.push({
-    qty: "1×",
-    name: data.label,
-    price: data.basePrice
+  data.bases.forEach(base => {
+    lines.push({
+      qty: "1×",
+      name: baseSelections[base.key]
+    });
   });
 
-
-  data.bases.forEach(
-    base => {
-
-      const selection =
-        baseSelections[
-          base.key
-        ];
-
+  data.toppings.forEach(topping => {
+    const count = toppingCounts[topping.id] || 0;
+    if (count > 0) {
       lines.push({
-        qty: "—",
-        name: selection.name,
-        price: selection.price
+        qty: count + "×",
+        name: topping.label
       });
-
-      total += selection.price;
-
     }
-  );
-
-
-  data.toppings.forEach(
-    topping => {
-
-      const count =
-        toppingCounts[
-          topping.id
-        ] || 0;
-
-
-      if (count > 0) {
-
-        const lineTotal =
-          count * topping.price;
-
-        lines.push({
-          qty: count + "×",
-          name: topping.label,
-          price: lineTotal
-        });
-
-        total += lineTotal;
-
-      }
-
-    }
-  );
-
+  });
 
   receipt.innerHTML = `
-
     <div class="receipt-head">
-
-      <p class="receipt-title">
-        ${data.label}
-      </p>
-
-      <p>
-        prepared with care
-      </p>
-
+      <p class="receipt-title">${data.label}</p>
+      <p style="margin: 0.3rem 0; font-size: 0.75rem; letter-spacing: 0.1em;">Confectioned with Culinary Radiance</p>
     </div>
 
     <hr class="receipt-divider">
 
-    ${lines.map(
-      line => `
-        <div class="receipt-line">
-
-          <span>
-            ${line.qty}
-          </span>
-
-          <span>
-            ${line.name}
-          </span>
-
-          <span>
-            ${
-              line.price > 0
-                ? formatPrice(line.price)
-                : "incl."
-            }
-          </span>
-
-        </div>
-      `
-    ).join("")}
+    ${lines.map(line => `
+      <div class="receipt-line">
+        <span>${line.qty}</span>
+        <span>${line.name}</span>
+      </div>
+    `).join("")}
 
     <hr class="receipt-divider">
-
-    <div class="receipt-line receipt-total">
-
-      <span></span>
-
-      <span>
-        Total
-      </span>
-
-      <span>
-        ${formatPrice(total)}
-      </span>
-
-    </div>
-
-    <div class="receipt-stamp-wrap">
-
-      <span class="receipt-stamp">
-        ✓ Fresh
-      </span>
-
-    </div>
 
     <p class="receipt-foot">
       A PERFECT DAY · BON APPÉTIT
     </p>
-
   `;
 
-
-  dbResult.hidden =
-    false;
-
-
+  dbResult.hidden = false;
   dbResult.scrollIntoView({
     behavior: "smooth",
     block: "center"
   });
-
 }
 
 
@@ -2741,143 +1319,54 @@ function showReceipt() {
    MAKE ANOTHER DISH
    ============================================================ */
 
-document
-  .getElementById("dbAnotherBtn")
-  .addEventListener(
-    "click",
-    () => {
+document.getElementById("dbAnotherBtn").addEventListener("click", () => {
+  currentDish = null;
+  baseSelections = {};
+  toppingCounts = {};
+  toppingIndex = 0;
+  served = false;
 
-      currentDish = null;
+  dbStep1.querySelectorAll(".dish-card").forEach(card => {
+    card.classList.remove("selected");
+  });
 
-      baseSelections = {};
+  dbPanel.hidden = true;
+  dbCastBtn.hidden = true;
+  dbCastBtn.disabled = true;
+  dbResult.hidden = true;
 
-      toppingCounts = {};
+  dishArt.innerHTML = "";
+  toppingsLayer.innerHTML = "";
+  sparklesLayer.innerHTML = "";
 
-      toppingIndex = 0;
+  dbPlate.classList.remove("magic-complete");
+  dishArt.classList.remove("magic-complete");
+  steamLayer.style.opacity = "0";
 
-      served = false;
-
-
-      dbStep1
-        .querySelectorAll(
-          ".dish-card"
-        )
-        .forEach(card => {
-
-          card.classList.remove(
-            "selected"
-          );
-
-        });
-
-
-      dbPanel.hidden =
-        true;
-
-      dbCastBtn.hidden =
-        true;
-
-      dbCastBtn.disabled =
-        true;
-
-      dbResult.hidden =
-        true;
-
-
-      dishArt.innerHTML =
-        "";
-
-      toppingsLayer.innerHTML =
-        "";
-
-      sparklesLayer.innerHTML =
-        "";
-
-      dbPlate.classList.remove(
-        "magic-complete"
-      );
-
-      dishArt.classList.remove(
-        "magic-complete"
-      );
-
-
-      steamLayer.style.opacity =
-        "0";
-
-
-      window.scrollTo({
-        top:
-          document.getElementById(
-            "dishBuilder"
-          ).offsetTop,
-        behavior: "smooth"
-      });
-
-    }
-  );
+  window.scrollTo({
+    top: document.getElementById("dishBuilder").offsetTop,
+    behavior: "smooth"
+  });
+});
 
 
 /* ============================================================
-   REVEAL TEXT
+   REVEAL TEXT OBSERVER
    ============================================================ */
 
-const revealElements =
-  document.querySelectorAll(
-    ".reveal-el"
-  );
+const revealElements = document.querySelectorAll(".reveal-el");
 
-
-if (
-  "IntersectionObserver"
-  in window
-) {
-
-  const observer =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(
-          entry => {
-
-            if (
-              entry.isIntersecting
-            ) {
-
-              entry.target.classList.add(
-                "in-view"
-              );
-
-              observer.unobserve(
-                entry.target
-              );
-
-            }
-
-          }
-        );
-
-      },
-      {
-        threshold: .15
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
       }
-    );
+    });
+  }, { threshold: .15 });
 
-
-  revealElements.forEach(
-    element =>
-      observer.observe(
-        element
-      )
-  );
-
+  revealElements.forEach(element => observer.observe(element));
 } else {
-
-  revealElements.forEach(
-    element =>
-      element.classList.add(
-        "in-view"
-      )
-  );
-
+  revealElements.forEach(element => element.classList.add("in-view"));
 }

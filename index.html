@@ -19,6 +19,13 @@
 
   <div class="sticky-viewport">
 
+    <!-- Magical Celestial Backgrounds behind TV -->
+    <div class="aurora-layer aurora-primary" id="auroraPrimary"></div>
+    <div class="aurora-layer aurora-secondary" id="auroraSecondary"></div>
+    <div class="radiant-core" id="radiantCore"></div>
+    <div class="ambient-glow" id="ambientGlow"></div>
+    <div class="space-dust" id="spaceDust"></div>
+
     <!-- Opening -->
     <div class="intro-title" id="introTitle">
       <span class="intro-eyebrow">an interactive story</span>
@@ -26,26 +33,96 @@
       <span class="intro-hint">scroll to begin</span>
     </div>
 
-    <div class="ambient-glow" id="ambientGlow"></div>
-
-    <!-- Wires -->
+    <!-- Wires & Detailed Heavy Plugs -->
     <div class="wires-layer">
-      <svg class="wires-svg"
-           viewBox="0 0 1000 600"
-           preserveAspectRatio="none">
+      <svg class="wires-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
+        <defs>
+          <!-- Braided Texture Pattern -->
+          <pattern id="braidedPattern" width="6" height="6" patternUnits="userSpaceOnUse">
+            <path d="M0 3 L3 0 L6 3 L3 6 Z" fill="#2d221a" stroke="#16110c" stroke-width="0.75" />
+          </pattern>
 
-        <path
-          id="wireLeft"
-          class="wire"
-          d="M 250 -20 C 250 150, 350 250, 470 300"/>
+          <!-- 3D Cable Shading -->
+          <linearGradient id="cableGripGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4a3b30" />
+            <stop offset="25%" stop-color="#2c221b" />
+            <stop offset="65%" stop-color="#18120e" />
+            <stop offset="100%" stop-color="#0a0705" />
+          </linearGradient>
 
-        <path
-          id="wireRight"
-          class="wire"
-          d="M 750 -20 C 750 150, 650 250, 530 300"/>
+          <!-- Metallic Gold Accents -->
+          <linearGradient id="goldChassisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff0bd" />
+            <stop offset="40%" stop-color="#e5b85d" />
+            <stop offset="70%" stop-color="#b8862d" />
+            <stop offset="100%" stop-color="#704d12" />
+          </linearGradient>
 
-        <circle id="plugLeft" class="plug" cx="470" cy="300" r="9"/>
-        <circle id="plugRight" class="plug" cx="530" cy="300" r="9"/>
+          <!-- Brass Prongs Glow -->
+          <linearGradient id="brassProng" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#fff8db" />
+            <stop offset="50%" stop-color="#ffbe42" />
+            <stop offset="100%" stop-color="#a66e14" />
+          </linearGradient>
+
+          <!-- Heavy Drop Shadow -->
+          <filter id="plugShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity="0.75"/>
+          </filter>
+        </defs>
+
+        <!-- Dynamic shadows for depth -->
+        <path id="wireShadowLeft" class="wire-shadow" />
+        <path id="wireShadowRight" class="wire-shadow" />
+
+        <!-- Outer Cable Body -->
+        <path id="wireLeftBase" class="wire-outer" />
+        <path id="wireRightBase" class="wire-outer" />
+
+        <!-- Braided Texture Overlay -->
+        <path id="wireLeftTexture" class="wire-texture" />
+        <path id="wireRightTexture" class="wire-texture" />
+
+        <!-- Cable Top Highlight -->
+        <path id="wireLeftHighlight" class="wire-highlight" />
+        <path id="wireRightHighlight" class="wire-highlight" />
+
+        <!-- LEFT PLUG (Male Industrial Connector) -->
+        <g id="plugLeftGroup" class="plug-group" filter="url(#plugShadow)">
+          <rect x="-44" y="-5" width="6" height="10" rx="2" fill="#140f0c" />
+          <rect x="-38" y="-7" width="7" height="14" rx="2" fill="#1f1813" />
+          <rect x="-31" y="-9" width="7" height="18" rx="2.5" fill="#28201a" />
+          <rect x="-24" y="-11" width="7" height="22" rx="3" fill="#322820" />
+
+          <rect x="-17" y="-15" width="36" height="30" rx="6" fill="url(#cableGripGrad)" stroke="url(#goldChassisGrad)" stroke-width="1.5" />
+          
+          <rect x="-11" y="-12" width="4" height="24" rx="1.5" fill="#110d0a" opacity="0.8" />
+          <rect x="-4" y="-12" width="4" height="24" rx="1.5" fill="#110d0a" opacity="0.8" />
+          <rect x="3" y="-12" width="4" height="24" rx="1.5" fill="#110d0a" opacity="0.8" />
+
+          <rect x="13" y="-13" width="6" height="26" rx="2" fill="url(#goldChassisGrad)" />
+
+          <rect class="prong" x="19" y="-8" width="18" height="5.5" rx="1.5" fill="url(#brassProng)" />
+          <rect class="prong" x="19" y="2.5" width="18" height="5.5" rx="1.5" fill="url(#brassProng)" />
+        </g>
+
+        <!-- RIGHT PLUG (Female Receptacle) -->
+        <g id="plugRightGroup" class="plug-group" filter="url(#plugShadow)">
+          <rect x="38" y="-5" width="6" height="10" rx="2" fill="#140f0c" />
+          <rect x="31" y="-7" width="7" height="14" rx="2" fill="#1f1813" />
+          <rect x="24" y="-9" width="7" height="18" rx="2.5" fill="#28201a" />
+          <rect x="17" y="-11" width="7" height="22" rx="3" fill="#322820" />
+
+          <rect x="-22" y="-16" width="39" height="32" rx="6" fill="url(#cableGripGrad)" stroke="url(#goldChassisGrad)" stroke-width="1.5" />
+
+          <rect x="-14" y="-13" width="4" height="26" rx="1.5" fill="#110d0a" opacity="0.8" />
+          <rect x="-7" y="-13" width="4" height="26" rx="1.5" fill="#110d0a" opacity="0.8" />
+          <rect x="0" y="-13" width="4" height="26" rx="1.5" fill="#110d0a" opacity="0.8" />
+
+          <rect x="-28" y="-13" width="6" height="26" rx="2" fill="url(#goldChassisGrad)" />
+          <rect x="-28" y="-8" width="4" height="5.5" rx="1" fill="#000" />
+          <rect x="-28" y="2.5" width="4" height="5.5" rx="1" fill="#000" />
+        </g>
       </svg>
 
       <div class="spark" id="spark">
@@ -56,7 +133,7 @@
     </div>
 
     <!-- ========================================================
-         RETRO TV
+         ENLARGED RETRO TV
          ======================================================== -->
 
     <div class="tv-rig" id="tvRig">
@@ -134,10 +211,6 @@
                 <div class="sky sky-cafe"></div>
                 <div class="cafe-wall"></div>
 
-                <div class="cafe-lamp">
-                  <div class="lamp-glow"></div>
-                </div>
-
                 <div class="cafe-table">
                   <div class="mug">
                     <div class="mug-handle"></div>
@@ -149,6 +222,10 @@
                   <div class="small-plate">
                     <div class="croissant"></div>
                   </div>
+                </div>
+
+                <div class="cafe-lamp">
+                  <div class="lamp-glow"></div>
                 </div>
 
                 <div class="scene-caption">
@@ -263,10 +340,6 @@
                     thank you for watching
                   </p>
                 </div>
-
-                <button class="watch-again" id="watchAgainBtn">
-                  ↻ WATCH AGAIN
-                </button>
 
               </section>
 
@@ -397,7 +470,7 @@
 
 
 <!-- ============================================================
-     PART 2 — CULINARY FINALE
+     PART 2 — DELIGHTFUL CULINARY FINALE
      ============================================================ -->
 
 <section class="dish-builder" id="dishBuilder">
@@ -407,122 +480,135 @@
   <div class="db-inner">
 
     <p class="db-eyebrow reveal-el">
-      one more scene before you go
+      ✦ One Final Masterpiece ✦
     </p>
 
     <h2 class="db-headline reveal-el">
-      Every perfect day needs a signature flavor.
+      Every memorable day deserves its signature flavor.
       <br>
-      What will you create tonight?
+      <span>What culinary magic will you conjure tonight?</span>
     </h2>
 
-    <!-- DISH CHOICE -->
+    <!-- DISH CHOICE CARDS -->
     <div class="db-step-1 reveal-el" id="dbStep1">
 
       <button class="dish-card" data-dish="pizza">
-
-        <svg viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="35" fill="#f0b96a"/>
-          <circle cx="40" cy="40" r="28" fill="#e2472f"/>
-          <circle cx="30" cy="31" r="6" fill="#fff3c4"/>
-          <circle cx="50" cy="30" r="5" fill="#ffe98a"/>
-          <circle cx="45" cy="51" r="6" fill="#fff3c4"/>
-          <circle cx="28" cy="51" r="4" fill="#a8220f"/>
+        <div class="card-glow"></div>
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <radialGradient id="cardPzCrust" cx="40%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#fed693"/>
+              <stop offset="70%" stop-color="#d9933f"/>
+              <stop offset="100%" stop-color="#8c4e1a"/>
+            </radialGradient>
+            <radialGradient id="cardPzSauce" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#ff6040"/>
+              <stop offset="60%" stop-color="#d4301d"/>
+              <stop offset="100%" stop-color="#80150b"/>
+            </radialGradient>
+            <radialGradient id="cardPzCheese" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="60%" stop-color="#fffae0"/>
+              <stop offset="100%" stop-color="#f5d469"/>
+            </radialGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="url(#cardPzCrust)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.5))"/>
+          <circle cx="50" cy="50" r="37" fill="url(#cardPzSauce)"/>
+          <path d="M28 42 Q50 25 72 40 Q75 68 52 75 Q25 70 28 42 Z" fill="url(#cardPzCheese)" opacity="0.9"/>
+          <!-- Toppings -->
+          <circle cx="38" cy="38" r="7" fill="#be2d1f" stroke="#7a1208" stroke-width="1"/>
+          <circle cx="62" cy="42" r="6.5" fill="#be2d1f" stroke="#7a1208" stroke-width="1"/>
+          <circle cx="48" cy="62" r="7" fill="#be2d1f" stroke="#7a1208" stroke-width="1"/>
+          <path d="M48 32 Q54 26 58 35 Q50 42 48 32Z" fill="#46a03b"/>
+          <path d="M33 54 Q40 48 44 57 Q36 63 33 54Z" fill="#46a03b"/>
         </svg>
-
-        <span class="dish-name">
-          Handcrafted Pizza
-        </span>
-
+        <span class="dish-name">Handcrafted Pizza</span>
+        <span class="dish-sub">Artisanal Hearth Baked</span>
       </button>
 
 
       <button class="dish-card" data-dish="cake">
-
-        <svg viewBox="0 0 80 80">
-
-          <ellipse
-            cx="40"
-            cy="66"
-            rx="28"
-            ry="6"
-            fill="#000"
-            opacity=".3"/>
-
-          <rect
-            x="18"
-            y="38"
-            width="44"
-            height="26"
-            rx="5"
-            fill="#8a4c26"/>
-
-          <path
-            d="M16 39 Q40 25 64 39 Q40 48 16 39Z"
-            fill="#fffaf0"/>
-
-          <circle cx="28" cy="28" r="4" fill="#ff5d7a"/>
-          <circle cx="40" cy="24" r="4" fill="#ffcc4d"/>
-          <circle cx="52" cy="29" r="4" fill="#ff5d7a"/>
-
+        <div class="card-glow"></div>
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="cardCakeSponge" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8a5332"/>
+              <stop offset="100%" stop-color="#472614"/>
+            </linearGradient>
+            <linearGradient id="cardCakeFrosting" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="50%" stop-color="#fff8eb"/>
+              <stop offset="100%" stop-color="#edd9b6"/>
+            </linearGradient>
+            <radialGradient id="cardBerry" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#ff5c8a"/>
+              <stop offset="70%" stop-color="#b8163f"/>
+              <stop offset="100%" stop-color="#54051a"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="80" rx="36" ry="8" fill="#000" opacity="0.35"/>
+          <rect x="22" y="48" width="56" height="30" rx="6" fill="url(#cardCakeSponge)"/>
+          <path d="M22 48 Q50 38 78 48 Q78 58 72 63 Q50 56 28 63 Q22 58 22 48Z" fill="url(#cardCakeFrosting)"/>
+          <rect x="30" y="28" width="40" height="22" rx="5" fill="url(#cardCakeSponge)"/>
+          <path d="M28 28 Q50 18 72 28 Q72 38 68 41 Q50 36 32 41 Q28 38 28 28Z" fill="url(#cardCakeFrosting)"/>
+          <!-- Drips & Berries -->
+          <path d="M38 35 Q40 44 38 48 M50 32 Q52 45 50 49 M62 35 Q64 43 62 47" stroke="#edd9b6" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="42" cy="18" r="5" fill="url(#cardBerry)"/>
+          <circle cx="56" cy="20" r="5" fill="url(#cardBerry)"/>
+          <circle cx="50" cy="14" r="4.5" fill="#f5af38"/>
         </svg>
-
-        <span class="dish-name">
-          Celebration Cake
-        </span>
-
+        <span class="dish-name">Celebration Cake</span>
+        <span class="dish-sub">Velvet Glazed Pastry</span>
       </button>
 
 
       <button class="dish-card" data-dish="noodles">
-
-        <svg viewBox="0 0 80 80">
-
-          <ellipse
-            cx="40"
-            cy="48"
-            rx="31"
-            ry="20"
-            fill="#c9b58e"/>
-
-          <ellipse
-            cx="40"
-            cy="43"
-            rx="25"
-            ry="15"
-            fill="#e8b444"/>
-
-          <path
-            d="M20 42 Q28 27 36 42 T53 42"
-            fill="none"
-            stroke="#fff8e4"
-            stroke-width="3"/>
-
-          <circle cx="52" cy="38" r="6" fill="#fff6e0"/>
-          <circle cx="52" cy="38" r="3" fill="#ff9d2e"/>
-
+        <div class="card-glow"></div>
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <radialGradient id="cardBowl" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#fff8eb"/>
+              <stop offset="70%" stop-color="#d4be98"/>
+              <stop offset="100%" stop-color="#735e3c"/>
+            </radialGradient>
+            <radialGradient id="cardBroth" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#ffd56b"/>
+              <stop offset="60%" stop-color="#e39827"/>
+              <stop offset="100%" stop-color="#733b06"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="85" rx="36" ry="7" fill="#000" opacity="0.35"/>
+          <ellipse cx="50" cy="56" rx="42" ry="34" fill="url(#cardBowl)"/>
+          <ellipse cx="50" cy="50" rx="35" ry="26" fill="url(#cardBroth)"/>
+          <!-- Noodles & Egg -->
+          <g fill="none" stroke="#fff4dc" stroke-width="3.5" stroke-linecap="round">
+            <path d="M24 50 Q36 36 48 50 T72 50"/>
+            <path d="M28 58 Q40 44 54 58 T74 56"/>
+            <path d="M36 42 Q48 30 62 42"/>
+          </g>
+          <path d="M54 44 A10 10 0 0 1 72 44 Z" fill="#fffdf5"/>
+          <circle cx="63" cy="44" r="5" fill="#fca311"/>
+          <rect x="22" y="32" width="14" height="18" rx="2" fill="#182e1c" transform="rotate(-15 22 32)"/>
         </svg>
-
-        <span class="dish-name">
-          Comfort Noodles
-        </span>
-
+        <span class="dish-name">Comfort Noodles</span>
+        <span class="dish-sub">Silky Gourmet Ramen</span>
       </button>
 
     </div>
 
 
     <!-- ========================================================
-         PREP STAGE
+         ENHANCED PREP STAGE
          ======================================================== -->
 
     <div class="stage-shell" id="stageShell">
 
       <div class="spotlight"></div>
+      <div class="stage-radiance"></div>
 
       <div class="board" id="board">
 
-        <!-- CRITICAL: persistent centered stage -->
+        <!-- Centered interactive staging -->
         <div id="prep-stage">
 
           <!-- HAND LEFT -->
@@ -531,19 +617,21 @@
           </div>
 
 
-          <!-- CENTER PLATE -->
-          <div class="plate" id="dbPlate">
+          <!-- CENTER PLATE WITH GLOW RING -->
+          <div class="plate-pedestal">
+            <div class="plate" id="dbPlate">
 
-            <div class="plate-base"></div>
-            <div class="plate-rim"></div>
-            <div class="plate-shine"></div>
+              <div class="plate-base"></div>
+              <div class="plate-rim-gold"></div>
+              <div class="plate-inner-well"></div>
 
-            <!-- Dish always gets injected here -->
-            <div class="dish-art" id="dishArt"></div>
+              <!-- Dish injected dynamically -->
+              <div class="dish-art" id="dishArt"></div>
 
-            <!-- Toppings are always above dish -->
-            <div id="toppings-layer"></div>
+              <!-- Toppings layered dynamically -->
+              <div id="toppings-layer"></div>
 
+            </div>
           </div>
 
 
@@ -553,50 +641,28 @@
           </div>
 
 
-          <!-- STEAM -->
+          <!-- DENSE STEAM -->
           <div class="steam-layer" id="steamLayer">
-
             <div class="steam-wisp">
               <svg viewBox="0 0 30 100">
-                <path
-                  d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="4"
-                  stroke-linecap="round"/>
+                <path d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0" fill="none" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
               </svg>
             </div>
-
             <div class="steam-wisp">
               <svg viewBox="0 0 30 100">
-                <path
-                  d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="4"
-                  stroke-linecap="round"/>
+                <path d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0" fill="none" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
               </svg>
             </div>
-
             <div class="steam-wisp">
               <svg viewBox="0 0 30 100">
-                <path
-                  d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="4"
-                  stroke-linecap="round"/>
+                <path d="M15 100 C2 75 28 65 15 45 C4 27 27 15 15 0" fill="none" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
               </svg>
             </div>
-
           </div>
 
 
-          <!-- SPARKLES -->
-          <div
-            class="sparkles-layer"
-            id="sparklesLayer">
-          </div>
+          <!-- MAGICAL SPARKLES -->
+          <div class="sparkles-layer" id="sparklesLayer"></div>
 
         </div>
 
@@ -608,82 +674,44 @@
     <div class="db-panel" id="dbPanel" hidden>
 
       <div class="db-panel-row">
-        <span class="db-panel-label" id="baseLabel1">
-          Base
-        </span>
-
-        <div
-          class="db-base-chips"
-          id="baseChips1">
-        </div>
+        <span class="db-panel-label" id="baseLabel1">Base Selection</span>
+        <div class="db-base-chips" id="baseChips1"></div>
       </div>
 
-
       <div class="db-panel-row">
-        <span class="db-panel-label" id="baseLabel2">
-          Second layer
-        </span>
-
-        <div
-          class="db-base-chips"
-          id="baseChips2">
-        </div>
+        <span class="db-panel-label" id="baseLabel2">Sauce & Flavoring</span>
+        <div class="db-base-chips" id="baseChips2"></div>
       </div>
 
-
       <div class="db-panel-row">
-
-        <span class="db-panel-label">
-          Toppings — click repeatedly to add
-        </span>
-
-        <div
-          class="topping-grid"
-          id="toppingGrid">
-        </div>
-
+        <span class="db-panel-label">Toppings — Click repeatedly to garnish</span>
+        <div class="topping-grid" id="toppingGrid"></div>
       </div>
 
     </div>
 
 
-    <!-- MAGIC -->
-    <button
-      class="db-cast-btn"
-      id="dbCastBtn"
-      hidden
-      disabled>
-
-      <span>✦</span>
-      Cast the Magic
-
+    <!-- MAGIC CAST BUTTON -->
+    <button class="db-cast-btn" id="dbCastBtn" hidden disabled>
+      <span class="cast-star">✦</span>
+      <span class="cast-label">Cast Culinary Magic</span>
+      <span class="cast-star">✦</span>
     </button>
 
 
-    <!-- RECEIPT -->
-    <div
-      class="db-receipt-wrap"
-      id="dbResult"
-      hidden>
+    <!-- RECEIPT PRESENTATION -->
+    <div class="db-receipt-wrap" id="dbResult" hidden>
 
-      <div
-        class="receipt"
-        id="receipt">
-      </div>
+      <div class="receipt" id="receipt"></div>
 
-      <button
-        id="dbAnotherBtn"
-        class="another-btn">
-
-        ↻ Make Another Dish
-
+      <button id="dbAnotherBtn" class="another-btn">
+        ↻ Craft Another Dish
       </button>
 
     </div>
 
   </div>
 </section>
-
 
 <script src="script.js"></script>
 
